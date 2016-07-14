@@ -1,0 +1,151 @@
+
+  <div id="container" ng-controller="TicTacToeController" ng-init="load()">
+    <!-- If the user is not authenticated show the authentication link -->
+    <div data-ng-show="!authentication.user">
+      <a href="/signup">Signup</a>
+      <a href="/signin">Signin</a>
+    </div>
+
+    <!-- Otherwise, show the user details and application links -->
+    <div data-ng-show="authentication.user">
+      <div ng-show="!joined">
+        <h1>Hello <span data-ng-bind="authentication.user.username"></span><a href="/signout">Signout</a></h1>
+
+        <table>
+          <th>
+            Room #
+          </th>
+          <th>
+            Number of Players
+          </th>
+          <th>
+
+          </th>
+          <tr>
+            <td>1</td>
+            <td><span style="font-size:1em;" ng-bind="GlobalRoomData['1'].Players.length"></span>/2</td>
+            <td><button ng-click="join(1)">Join</button></td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td><span ng-bind="GlobalRoomData['2'].Players.length" style="font-size:1em;"></span>/2</td>
+            <td><button ng-click="join(2)">Join</button></td>
+          </tr>
+          <tr>
+            <td>3</td>
+            <td><span ng-bind="GlobalRoomData['3'].Players.length" style="font-size:1em;"></span>/2</td>
+            <td><button ng-click="join(3)">Join</button></td>
+          </tr>
+        </table>
+
+
+
+      </div>
+
+      <div ng-show="joined">
+        <div>
+          Room: <span ng-bind="roomJoined"></span>
+        </div>
+
+
+        <div id="stage">
+        </div>
+
+        <!-- output result -->
+        <div ng-show="roomJoined == 1">
+          <span ng-bind="outputResultRoom1"></span>
+        </div>
+        <div ng-show="roomJoined == 2">
+          <span ng-bind="outputResultRoom2"></span>
+        </div>
+        <div ng-show="roomJoined == 3">
+          <span ng-bind="outputResultRoom3"></span>
+        </div>
+
+
+
+          <table id="tableStatus">
+            <!-- room output labels (players playing) -->
+            <tr ng-show="roomJoined == 1">
+              <td>
+                <span ng-bind="outputPlayer1Room1" ng-class="activeClass"></span> (X)
+              </td>
+              <td>
+                <span ng-bind="outputPlayer2Room1"></span> (O)
+              </td>
+              <td>
+                Ties
+              </td>
+            </tr>
+            <tr ng-show="roomJoined == 2">
+              <td>
+                <span ng-bind="outputPlayer1Room2"></span> (X)
+              </td>
+              <td>
+                <span ng-bind="outputPlayer2Room2"></span> (O)
+              </td>
+              <td>
+                Ties
+              </td>
+            </tr>
+            <tr ng-show="roomJoined == 3">
+              <td>
+                <span ng-bind="outputPlayer1Room3"></span> (X)
+              </td>
+              <td>
+                <span ng-bind="outputPlayer2Room3"></span> (O)
+              </td>
+              <td>
+                Ties
+              </td>
+            </tr>
+
+            <!-- rooms players wins output -->
+            <tr ng-show="roomJoined == 1">
+              <td>
+                <span ng-bind="outputPlayer1WinsRoom1"></span>
+              </td>
+              <td>
+                <span ng-bind="outputPlayer2WinsRoom1"></span>
+              </td>
+              <td>
+                <span ng-bind="outputTiesRoom1"></span>
+              </td>
+            </tr>
+            <tr ng-show="roomJoined == 2">
+              <td>
+                <span ng-bind="outputPlayer1WinsRoom2"></span>
+              </td>
+              <td>
+                <span ng-bind="outputPlayer2WinsRoom2"></span>
+              </td>
+              <td>
+                <span ng-bind="outputTiesRoom2"></span>
+              </td>
+            </tr>
+            <tr ng-show="roomJoined == 3">
+              <td>
+                <span ng-bind="outputPlayer1WinsRoom3"></span>
+              </td>
+              <td>
+                <span ng-bind="outputPlayer2WinsRoom3"></span>
+              </td>
+              <td>
+                <span ng-bind="outputTiesRoom3"></span>
+              </td>
+            </tr>
+
+          </table>
+
+
+
+
+
+
+
+        <br>
+        <a href="/#!/" ng-Click="leave()">Home</a>
+      </div>
+    </div>
+
+  </div>

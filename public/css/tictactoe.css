@@ -1,0 +1,60 @@
+html, body {
+    margin: 0;
+    height: 100%;
+}
+
+body, h1{
+  text-align: center;
+  font-family: 'Nunito', sans-serif;
+}
+
+h1{
+  padding-top: 10px;
+}
+
+#stage{
+  width: 455px;
+  height: 455px;
+  margin: auto;
+  padding-top: 30px;
+  padding-bottom: 30px;
+}
+
+.cell{
+  text-align: center;
+  font-size: 8em;
+  font-family: 'Nunito', sans-serif;
+  font-weight: bold;
+  -webkit-transition: font-size 3s ease;
+  -moz-transition: font-size 3s ease;
+  transition: font-size 3s ease;
+}
+
+.cell:hover{
+  cursor: pointer;
+}
+
+
+#output{
+  clear: both;
+  text-align: center;
+  font-style: italic;
+  color: darkgray;
+}
+
+table{
+  display: inline-block;
+}
+
+td{
+  padding-right: 17px;
+  padding-left: 17px;
+}
+
+td span{
+  font-size: 2em;
+}
+
+.active{
+  color: #2ecc71;
+}
