@@ -47,9 +47,19 @@
           Room: <span ng-bind="roomJoined"></span>
         </div>
 
+        <!--
+        <div id="playAgainContainer">
+          <p>Play again?</p>
+          <div>
+            <button>Yes</button>&nbsp;<button>No</button>
+          </div>
+        </div>
+      -->
 
         <div id="stage">
         </div>
+
+
 
         <!-- output result -->
         <div ng-show="roomJoined == 1">
@@ -61,6 +71,11 @@
         <div ng-show="roomJoined == 3">
           <span ng-bind="outputResultRoom3"></span>
         </div>
+
+        <div ng-show="gameOver">
+          <button ng-click="playAgain()">Play Again</button>
+        </div>
+
 
 
 

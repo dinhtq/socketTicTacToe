@@ -6,6 +6,7 @@ angular.module('chat').controller('TicTacToeController', ['Socket', '$scope', 'A
   $scope.connectedPlayers = [];
   $scope.gameStarted = false;
   $scope.roomJoined = 0;
+  $scope.gameOver = false;
 
   $scope.RoomData = {
     "1": {
@@ -30,6 +31,40 @@ angular.module('chat').controller('TicTacToeController', ['Socket', '$scope', 'A
       "Players": []
     }
   };
+
+
+  $scope.playAgain = function(){
+    console.log("playAgain");
+
+    var playAgainMessage = {
+      room: $scope.roomJoined
+    };
+
+    //send playAgainMessage
+    Socket.emit('playAgain', playAgainMessage);
+  };
+
+  Socket.on('playAgain', function(playAgainMessage){
+    console.log("socket on playAgain");
+    $scope.gameOver = false;
+    //reset stage
+    resetStage();
+    //clear room outputs
+    var updateObj = {
+      room: playAgainMessage.room,
+      playerNumber: 0,
+      playerName: "",
+      tie: false, //players tie score
+      win: false, //player score
+      label: false, //player name
+      status: "Player 1 turn!",
+      gameStart: true
+    };
+    updateRoomOutput();
+    //add click listener
+    stage.addEventListener("click", stageClickHandler, false);
+  });
+
 
 
   //initialize room outputs
@@ -73,7 +108,8 @@ angular.module('chat').controller('TicTacToeController', ['Socket', '$scope', 'A
         tie: bool, //players tie score
         win: bool, //player score
         label: bool, //player name
-        status: string
+        status: string,
+        gameStart: bool
       }
     */
 
@@ -104,9 +140,10 @@ angular.module('chat').controller('TicTacToeController', ['Socket', '$scope', 'A
           $scope["outputPlayer" + strPlayerNumber +  "Room" + strRoom] = strPlayerName;
         }
         else{
-            //update wins?
-            if (updateObj.win === true) {
-              $scope["outputPlayer" + strPlayerNumber + "WinsRoom" + strRoom] = $scope["outputPlayer" + strPlayerNumber + "WinsRoom" + strRoom] + 1;
+            //update gameStart?
+            if (updateObj.gameStart === true) {
+              $scope["outputResultRoom" + strRoom] = updateObj.status;
+
             }
             else{
                 //update status
@@ -119,6 +156,7 @@ angular.module('chat').controller('TicTacToeController', ['Socket', '$scope', 'A
                     //get player username
                     var playerWonUsername = getPlayerUsername(updateObj.playerNumber, updateObj.room);
                     $scope["outputResultRoom" + strRoom] = playerWonUsername + " " + updateObj.status;
+                    $scope["outputPlayer" + strPlayerNumber + "WinsRoom" + strRoom] = $scope["outputPlayer" + strPlayerNumber + "WinsRoom" + strRoom] + 1;
                 }
 
             }
@@ -711,6 +749,110 @@ angular.module('chat').controller('TicTacToeController', ['Socket', '$scope', 'A
   };//end render
 
 
+
+  function resetStage(){
+    //console.log("render()");
+    //clear the child nodes from previous turn
+    if (stage.hasChildNodes()) {
+      //console.log("hasChildNodes");
+      for(var i = 0; i < ROWS * COLUMNS; i++){
+        if(stage.firstChild){
+          stage.removeChild(stage.firstChild);
+          //console.log("remove stage.firstChild");
+        }
+
+      }
+    }
+
+    //render game by looping through map[]
+    for (var row = 0; row < ROWS; row++) {
+      //loop columns
+      for (var column = 0; column < COLUMNS; column++) {
+
+        //append a div with class cell as child of stage
+        var cell = document.createElement("div");
+        cell.className = "cell";
+
+        //set cell width and height
+        cell.style.width = SIZE + "px";
+        cell.style.height = SIZE + "px";
+        //set float left
+        cell.style.float = "left";
+        //customizing specific cells
+        var styleBorder = "2px solid black";
+
+        switch (map[row][column]) {
+          case 0:
+
+            cell.id = map[row][column];
+            cell.style.borderRight = styleBorder;
+            cell.style.borderBottom = styleBorder;
+            break;
+          case 1:
+            cell.id = map[row][column];
+            cell.style.borderRight = styleBorder;
+            cell.style.borderBottom = styleBorder;
+            break;
+          case 2:
+            cell.id = map[row][column];
+            cell.style.borderBottom = styleBorder;
+            break;
+          case 3:
+            cell.id = map[row][column];
+            cell.style.clear = "both";
+            cell.style.borderBottom = styleBorder;
+            cell.style.borderRight = styleBorder;
+            break;
+          case 4:
+            cell.id = map[row][column];
+            cell.style.borderRight = styleBorder;
+            cell.style.borderBottom = styleBorder;
+            break;
+          case 5:
+            cell.id = map[row][column];
+            cell.style.borderBottom = styleBorder;
+            break;
+          case 6:
+            cell.id = map[row][column];
+            cell.style.clear = "both";
+            cell.style.borderRight = styleBorder;
+            break;
+          case 7:
+            cell.id = map[row][column];
+            cell.style.borderRight = styleBorder;
+            break;
+          case 8:
+            cell.id = map[row][column];
+            break;
+          default:
+
+        }//end customizing specific cells
+
+
+
+
+        //append cell node as child of stage
+        stage.appendChild(cell);
+
+        //change fontSize to animate the symbol entrance
+        /*if (Player1.symbolPositions.indexOf(map[row][column].toString()) > -1) {
+          cell.style.fontSize = '7em';
+        }
+        if (Player2.symbolPositions.indexOf(map[row][column].toString()) > -1) {
+          cell.style.fontSize = '7em';
+        }
+        */
+
+
+      }//next column
+
+    }//next row
+
+
+
+  };//end resetStage
+
+
   function checkWhoWon(){
     //console.log("checkWhoWon()");
     var match = 0;
@@ -784,6 +926,9 @@ angular.module('chat').controller('TicTacToeController', ['Socket', '$scope', 'A
 
 
   function gameEnds(){
+
+    $scope.gameOver = true;
+
     //update room status output
     var updateObj = {
       room: $scope.roomJoined,
@@ -822,6 +967,8 @@ angular.module('chat').controller('TicTacToeController', ['Socket', '$scope', 'A
     stage.removeEventListener("click", stageClickHandler, false);
 
   }
+
+
 
 
   function log(str){

@@ -32,7 +32,11 @@ module.exports = function(io, socket, clientsConnected, RoomData){
   });
 
 
-
+  //play again message
+  socket.on('playAgain', function(playAgainMessage){
+    console.log("on playAgain");
+    io.in(playAgainMessage.room).emit('playAgain', playAgainMessage);
+  });
 
   //tictactoe event handler
   socket.on('tictactoe', function(messagePlayer){
