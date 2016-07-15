@@ -40,6 +40,8 @@ angular.module('chat').controller('TicTacToeController', ['Socket', '$scope', 'A
       room: $scope.roomJoined
     };
 
+    console.log(playAgainMessage);
+
     //send playAgainMessage
     Socket.emit('playAgain', playAgainMessage);
   };
@@ -60,9 +62,26 @@ angular.module('chat').controller('TicTacToeController', ['Socket', '$scope', 'A
       status: "Player 1 turn!",
       gameStart: true
     };
-    updateRoomOutput();
+    updateRoomOutput(updateObj);
+    //clear players symbolPositions and won status
+    Player1.symbolPositions = [];
+    Player1.won = false;
+    Player2.symbolPositions = [];
+    Player2.won = false;
+    usedCells = [];
+
+    console.log(Player1);
+    console.log(Player2);
+    console.log(usedCells);
+
+    //reset game variables
+    counterTurns = 0;
+    gameOver = false;
+    cat = false;
+
     //add click listener
     stage.addEventListener("click", stageClickHandler, false);
+    console.log("added click listener");
   });
 
 
@@ -525,8 +544,10 @@ angular.module('chat').controller('TicTacToeController', ['Socket', '$scope', 'A
 
 
   function stageClickHandler(e){
+    console.log("stageClickHandler()");
     //single cell clicked handler
     if (e.target !== e.currentTarget) {
+
           var clickedCellID = e.target.id;
           //console.log("Hello " + clickedCellID);
           console.dir(usedCells);
@@ -544,7 +565,7 @@ angular.module('chat').controller('TicTacToeController', ['Socket', '$scope', 'A
             //output.innerHTML = "Cell taken!";
 
           }else{
-
+            console.log("here");
             //update player position
             if(counterTurns % 2 == 0){
               //update player 1 symbol position
@@ -585,6 +606,7 @@ angular.module('chat').controller('TicTacToeController', ['Socket', '$scope', 'A
 
 
   Socket.on('tictactoe', function(messagePlayer){
+    console.log("socket on tictactoe");
     //update player position
     if (messagePlayer.player == 1) {
       Player1.symbolPositions.push(messagePlayer.clickedCellID);
@@ -617,7 +639,7 @@ angular.module('chat').controller('TicTacToeController', ['Socket', '$scope', 'A
 
 
   function render(){
-    //console.log("render()");
+    console.log("render()");
     //clear the child nodes from previous turn
     if (stage.hasChildNodes()) {
       //console.log("hasChildNodes");
@@ -703,6 +725,7 @@ angular.module('chat').controller('TicTacToeController', ['Socket', '$scope', 'A
         if (Player2.symbolPositions.indexOf(map[row][column].toString()) > -1) {
           cell.innerHTML = "O";
         }
+
 
 
         //append cell node as child of stage
@@ -848,13 +871,13 @@ angular.module('chat').controller('TicTacToeController', ['Socket', '$scope', 'A
 
     }//next row
 
-
+    console.log("done reset stage");
 
   };//end resetStage
 
 
   function checkWhoWon(){
-    //console.log("checkWhoWon()");
+    console.log("checkWhoWon()");
     var match = 0;
     //check if min turns reached
     if (counterTurns > 4) {
@@ -926,7 +949,7 @@ angular.module('chat').controller('TicTacToeController', ['Socket', '$scope', 'A
 
 
   function gameEnds(){
-
+    console.log("gameEnds()");
     $scope.gameOver = true;
 
     //update room status output
@@ -977,6 +1000,7 @@ angular.module('chat').controller('TicTacToeController', ['Socket', '$scope', 'A
 
 
   $scope.$on('$destroy', function(){
+    console.log("scope on $destroy");
     Socket.removeListener('tictactoe');
   });
 
