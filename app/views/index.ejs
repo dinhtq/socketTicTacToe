@@ -3,7 +3,11 @@
 <head>
 	<!-- Use the 'title' property to render a page title  -->
 	<title><%= title %></title>
+	<!--
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+-->
 	<link href="css/tictactoe.css" rel="stylesheet" type="text/css">
+	<link href="css/modal.css" rel="stylesheet" type="text/css">
 	<link href='https://fonts.googleapis.com/css?family=Nunito:400,700' rel='stylesheet' type='text/css'>
 </head>
 <body>
@@ -15,11 +19,22 @@
 		window.user = <%- user || 'null' %>;
 	</script>
 
-	<!-- Load local libraries -->
+	<!-- Load vendor and angular libraries -->
+	<!--<script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+-->
 	<script type="text/javascript" src="/socket.io/socket.io.js"></script>
 	<script type="text/javascript" src="/lib/angular/angular.js"></script>
 	<script type="text/javascript" src="/lib/angular-route/angular-route.js"></script>
 	<script type="text/javascript" src="/lib/angular-resource/angular-resource.js"></script>
+
+	<!--load the modal module-->
+	<script type="text/javascript" src="/modal/modal.client.module.js"></script>
+	<script type="text/javascript" src="/modal/modalDirective.client.directive.js"></script>
+	<script type="text/javascript" src="/modal/services/modal.client.service.js"></script>
+	<script type="text/javascript" src="/modal/controllers/AlertModalController.client.controller.js"></script>
+	<script type="text/javascript" src="/modal/controllers/ConfirmModalController.client.controller.js"></script>
+	<script type="text/javascript" src="/modal/controllers/PromptModalController.client.controller.js"></script>
 
 	<!-- Load the articles module -->
 	<script type="text/javascript" src="/articles/articles.client.module.js"></script>
@@ -43,6 +58,8 @@
 	<script type="text/javascript" src="/chat/controllers/click.client.controller.js"></script>
 		<script type="text/javascript" src="/chat/controllers/tictactoe.client.controller.js"></script>
 	<script type="text/javascript" src="/chat/config/chat.client.routes.js"></script>
+
+
 
 	<!-- Bootstrap AngularJS application -->
 	<script type="text/javascript" src="/application.js"></script>

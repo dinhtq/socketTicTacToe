@@ -1,5 +1,5 @@
-angular.module('chat').controller('TicTacToeController', ['Socket', '$scope', 'Authentication',
-  function(Socket, $scope, Authentication){
+angular.module('chat').controller('TicTacToeController', ['Socket', '$scope', 'Authentication', '$location', '$window', 'modals',
+  function(Socket, $scope, Authentication, $location, $window, modals){
 
   $scope.authentication = Authentication;
   $scope.joined = false;
@@ -48,12 +48,22 @@ angular.module('chat').controller('TicTacToeController', ['Socket', '$scope', 'A
 
   Socket.on('playAgain', function(playAgainMessage){
     console.log("socket on playAgain");
+
+    resetEverything();
+
+    //add click listener
+    stage.addEventListener("click", stageClickHandler, false);
+
+  });
+
+  function resetEverything(){
+    console.log("resetEverything()");
     $scope.gameOver = false;
     //reset stage
     resetStage();
     //clear room outputs
     var updateObj = {
-      room: playAgainMessage.room,
+      room: $scope.roomJoined,
       playerNumber: 0,
       playerName: "",
       tie: false, //players tie score
@@ -78,12 +88,7 @@ angular.module('chat').controller('TicTacToeController', ['Socket', '$scope', 'A
     counterTurns = 0;
     gameOver = false;
     cat = false;
-
-    //add click listener
-    stage.addEventListener("click", stageClickHandler, false);
-    console.log("added click listener");
-  });
-
+  }
 
 
   //initialize room outputs
@@ -238,7 +243,8 @@ angular.module('chat').controller('TicTacToeController', ['Socket', '$scope', 'A
     //RoomData[room].Players.push($scope.authentication.username);
     $scope.joined = true;
 
-    //if enough players in room, then
+    //show modal
+    //$('#myModal').show();
 
 
     $scope.roomJoined = room;
@@ -333,7 +339,7 @@ angular.module('chat').controller('TicTacToeController', ['Socket', '$scope', 'A
   };
 
   Socket.on('leftRoomMessage', function(leftRoomMessage){
-
+    console.log("socket on leftRoomMessage");
     //remove player from RoomData
     var indexPlayerInRoomData = $scope.RoomData[leftRoomMessage.room].Players.indexOf(leftRoomMessage.player);
     //update output player names status
@@ -367,14 +373,18 @@ angular.module('chat').controller('TicTacToeController', ['Socket', '$scope', 'A
 
     console.log(leftRoomMessage.player + ' just left');
 
-
-
+    //resetEverything
+    resetEverything();
+    //redirect back to home page
+    //$window.location.href = '/#!/';
+    //console.log('redirected back to home');
   });
 
   Socket.on('leftRoomMessageGlobal', function(leftRoomMessage){
+    console.log("socket on leftRoomMessageGlobal");
     console.log('someone left a room');
     console.log('leftRoomMessage.roomData');
-    console.log(leftRoomMessage.roomData);
+
 
     $scope.GlobalRoomData = leftRoomMessage.roomData;
 
@@ -512,7 +522,7 @@ angular.module('chat').controller('TicTacToeController', ['Socket', '$scope', 'A
 
 
   $scope.load = function(){
-    startGame();
+    loadStage();
   }
 
 
@@ -531,16 +541,19 @@ angular.module('chat').controller('TicTacToeController', ['Socket', '$scope', 'A
 
 
   //called when enough players are in the game
-  function startGame(){
+  function loadStage(){
     console.log("in windowLoadHandler()");
     //render the game stage
     render();
-    //add click event listener to stage
-    stage.addEventListener("click", stageClickHandler, false);
+    startGame();
   }
 
 
+  function startGame(){
 
+    //add click event listener to stage
+    stage.addEventListener("click", stageClickHandler, false);
+  }
 
 
   function stageClickHandler(e){
@@ -1004,5 +1017,84 @@ angular.module('chat').controller('TicTacToeController', ['Socket', '$scope', 'A
     Socket.removeListener('tictactoe');
   });
 
+  // I open an Alert-type modal.
+  $scope.alertSomething = function() {
+      // The .open() method returns a promise that will be either
+      // resolved or rejected when the modal window is closed.
+      var promise = modals.open(
+          "alert",
+          {
+              message: "I think you are kind of beautiful!"
+          }
+      );
+      promise.then(
+          function handleResolve( response ) {
+              console.log( "Alert resolved." );
+          },
+          function handleReject( error ) {
+              console.warn( "Alert rejected!" );
+          }
+      );
+  };
+  // I open a Confirm-type modal.
+  $scope.confirmSomething = function() {
+      // The .open() method returns a promise that will be either
+      // resolved or rejected when the modal window is closed.
+      var promise = modals.open(
+          "confirm",
+          {
+              message: "Are you sure you want to taste that?!"
+          }
+      );
+      promise.then(
+          function handleResolve( response ) {
+              console.log( "Confirm resolved." );
+          },
+          function handleReject( error ) {
+              console.warn( "Confirm rejected!" );
+          }
+      );
+  };
+  // I open a Prompt-type modal.
+  $scope.promptSomething = function() {
+      // The .open() method returns a promise that will be either
+      // resolved or rejected when the modal window is closed.
+      var promise = modals.open(
+          "prompt",
+          {
+              message: "Who rocks the party the rocks the body?",
+              placeholder: "MC Lyte."
+          }
+      );
+      promise.then(
+          function handleResolve( response ) {
+              console.log( "Prompt resolved with [ %s ].", response );
+          },
+          function handleReject( error ) {
+              console.warn( "Prompt rejected!" );
+          }
+      );
+  };
+
+
 
 }]);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//
