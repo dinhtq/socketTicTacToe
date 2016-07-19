@@ -297,6 +297,8 @@ angular.module('chat').controller('TicTacToeController', ['Socket','$rootScope',
     if($scope.RoomData[$scope.roomJoined].Players.length < 2){
       console.log("Not enough players");
       $scope.alertSomething();
+    }else{
+      $rootScope.$emit( "modals.close" );
     }
 
 
@@ -314,7 +316,7 @@ angular.module('chat').controller('TicTacToeController', ['Socket','$rootScope',
   $scope.leave = function(){
     console.log('$scope.leave()');
     //close modal
-    console.log("emitted modals.close event");
+    //console.log("emitted modals.close event");
     $rootScope.$emit( "modals.close" );
     $scope.joined = false;
     Socket.emit('disconnectMessage', $scope.authentication.username);

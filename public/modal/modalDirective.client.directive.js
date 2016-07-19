@@ -19,7 +19,10 @@ angular.module('modal').directive("bnModals",['$rootScope', 'modals',
                   if ( element[ 0 ] !== event.target ) {
                       return;
                   }
-                  scope.$apply( modals.reject );
+
+                  //console.log(element);
+
+                  //scope.$apply( modals.reject );
               }
           );
           // Listen for "open" events emitted by the modals service object.
