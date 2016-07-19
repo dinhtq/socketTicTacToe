@@ -74,6 +74,7 @@ angular.module('modal').service("modals", function($rootScope, $q){
 
   // I reject the current modal with the given reason.
   function reject( reason ) {
+    console.log("modals.reject()");
       if ( ! modal.deferred ) {
           return;
       }
