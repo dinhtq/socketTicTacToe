@@ -297,6 +297,7 @@ angular.module('chat').controller('TicTacToeController', ['Socket','$rootScope',
     if($scope.RoomData[$scope.roomJoined].Players.length < 2){
       console.log("Not enough players");
       $scope.alertSomething();
+
     }else{
       $rootScope.$emit( "modals.close" );
     }
@@ -395,9 +396,11 @@ angular.module('chat').controller('TicTacToeController', ['Socket','$rootScope',
 
     //resetEverything
     resetEverything();
-    //redirect back to home page
-    //$window.location.href = '/#!/';
-    ////console.log('redirected back to home');
+
+    //open modal
+    console.log('try open modal');
+    $scope.alertSomething();
+
   });
 
   Socket.on('leftRoomMessageGlobal', function(leftRoomMessage){
