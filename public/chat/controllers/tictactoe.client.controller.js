@@ -326,7 +326,8 @@ angular.module('chat').controller('TicTacToeController', ['Socket','$rootScope',
     var leaveMessage = {
       room: $scope.roomJoined
     };
-
+    //resetEverything
+    resetEverything();
     Socket.emit('leaveMessage', leaveMessage);
 
     //remove player from RoomData
