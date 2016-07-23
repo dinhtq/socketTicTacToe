@@ -193,6 +193,7 @@ angular.module('chat').controller('TicTacToeController', ['Socket','$rootScope',
 
   //update player's active class to highlight which player is active (who's turn it is)
   function updatePlayersActiveClass(updateClassObj){
+    console.log('updatePlayersActiveClass');
     /* ex:
     updateClassObj = {
       player1Class: string,
@@ -205,6 +206,9 @@ angular.module('chat').controller('TicTacToeController', ['Socket','$rootScope',
 
     $scope["outputPlayer1Room" + strRoom + "Class"] = updateClassObj.player1Class;
     $scope["outputPlayer2Room" + strRoom + "Class"] = updateClassObj.player2Class;
+
+    console.log("Room :" + strRoom + " player 1 class: " + $scope["outputPlayer1Room" + strRoom + "Class"]);
+    console.log("Room :" + strRoom + " player 2 class: " + $scope["outputPlayer2Room" + strRoom + "Class"]);
 
   }
 
@@ -258,7 +262,7 @@ angular.module('chat').controller('TicTacToeController', ['Socket','$rootScope',
   };
 
   Socket.on('joinMessage', function(joinMessage){
-    //console.log(joinMessage.player + ' just joined');
+    console.log('socket on joinMessage');
 
     ////console.log($scope.RoomData);
 
@@ -280,6 +284,7 @@ angular.module('chat').controller('TicTacToeController', ['Socket','$rootScope',
     };
 
     //outputPlayer1.innerHTML = $scope.RoomData[joinMessage.roomJoined].Players[0];
+
     updateRoomOutput(updateObj);
 
     if ($scope.RoomData[$scope.roomJoined].Players.length > 1) {
@@ -300,7 +305,17 @@ angular.module('chat').controller('TicTacToeController', ['Socket','$rootScope',
 
     }else{
       $rootScope.$emit( "modals.close" );
+
+      //update players active class
+      var updateClassObj = {
+        player1Class: "active",
+        player2Class: "",
+        room: $scope.roomJoined
+      };
+
+      updatePlayersActiveClass(updateClassObj);
     }
+
 
 
 

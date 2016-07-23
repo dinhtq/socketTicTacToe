@@ -83,10 +83,10 @@
             <!-- room output labels (players playing) -->
             <tr ng-show="roomJoined == 1">
               <td>
-                <span ng-bind="outputPlayer1Room1" ng-class="activeClass"></span> (X)
+                <span ng-bind="outputPlayer1Room1" ng-class="outputPlayer1Room1Class"></span> (X)
               </td>
               <td>
-                <span ng-bind="outputPlayer2Room1"></span> (O)
+                <span ng-bind="outputPlayer2Room1" ng-class="outputPlayer2Room1Class"></span> (O)
               </td>
               <td>
                 Ties
@@ -94,10 +94,10 @@
             </tr>
             <tr ng-show="roomJoined == 2">
               <td>
-                <span ng-bind="outputPlayer1Room2"></span> (X)
+                <span ng-bind="outputPlayer1Room2" ng-class="outputPlayer1Room2Class"></span> (X)
               </td>
               <td>
-                <span ng-bind="outputPlayer2Room2"></span> (O)
+                <span ng-bind="outputPlayer2Room2" ng-class="outputPlayer2Room2Class"></span> (O)
               </td>
               <td>
                 Ties
@@ -105,10 +105,10 @@
             </tr>
             <tr ng-show="roomJoined == 3">
               <td>
-                <span ng-bind="outputPlayer1Room3"></span> (X)
+                <span ng-bind="outputPlayer1Room3" ng-class="outputPlayer1Room3Class"></span> (X)
               </td>
               <td>
-                <span ng-bind="outputPlayer2Room3"></span> (O)
+                <span ng-bind="outputPlayer2Room3" ng-class="outputPlayer2Room3Class"></span> (O)
               </td>
               <td>
                 Ties
