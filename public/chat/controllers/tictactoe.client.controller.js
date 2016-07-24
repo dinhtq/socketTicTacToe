@@ -9,7 +9,7 @@ angular.module('chat').controller('TicTacToeController', ['Socket','$rootScope',
   $scope.gameOver = false;
 
   $scope.clientTurn = false;
-
+  $scope.clientName = $scope.authentication.user.username;
 
   $scope.RoomData = {
     "1": {
@@ -37,7 +37,7 @@ angular.module('chat').controller('TicTacToeController', ['Socket','$rootScope',
 
 
   $scope.playAgain = function(){
-    //console.log("playAgain");
+    console.log("playAgain");
 
     var playAgainMessage = {
       room: $scope.roomJoined
@@ -47,6 +47,17 @@ angular.module('chat').controller('TicTacToeController', ['Socket','$rootScope',
 
     //send playAgainMessage
     Socket.emit('playAgain', playAgainMessage);
+
+    //add / remove click event listener 
+    if($scope.RoomData[$scope.roomJoined].Players[0] == $scope.clientName){
+      //add click listner
+      console.log('addEventListener');
+      stage.addEventListener("click", stageClickHandler, false);
+    }else{
+      //remove click listener
+      console.log('removeEventListener');
+      stage.removeEventListener("click", stageClickHandler, false);
+    }
   };
 
   Socket.on('playAgain', function(playAgainMessage){
@@ -64,6 +75,17 @@ angular.module('chat').controller('TicTacToeController', ['Socket','$rootScope',
     };
 
     updatePlayersActiveClass(updateClassObj);
+
+        //add / remove click event listener 
+    if($scope.RoomData[$scope.roomJoined].Players[0] == $scope.clientName){
+      //add click listner
+      console.log('addEventListener');
+      stage.addEventListener("click", stageClickHandler, false);
+    }else{
+      //remove click listener
+      console.log('removeEventListener');
+      stage.removeEventListener("click", stageClickHandler, false);
+    }
 
   });
 
@@ -99,6 +121,8 @@ angular.module('chat').controller('TicTacToeController', ['Socket','$rootScope',
     counterTurns = 0;
     gameOver = false;
     cat = false;
+
+
   }
 
 
@@ -317,6 +341,7 @@ angular.module('chat').controller('TicTacToeController', ['Socket','$rootScope',
       $scope.alertSomething();
 
     }else{
+      console.log("Enough players");
       $rootScope.$emit( "modals.close" );
 
       //update players active class
@@ -327,6 +352,17 @@ angular.module('chat').controller('TicTacToeController', ['Socket','$rootScope',
       };
 
       updatePlayersActiveClass(updateClassObj);
+
+      //check if its this client turn
+
+      
+     
+      //if client name is in the first element of RoomData, then add click listener
+      var arRoomPlayers = $scope.RoomData[$scope.roomJoined].Players;
+      console.log('arRoomPlayers[0] : ' + arRoomPlayers[0]);
+      if(arRoomPlayers[0] == $scope.clientName){
+        stage.addEventListener("click", stageClickHandler, false);
+      } 
     }
 
     //update room output status
@@ -356,6 +392,9 @@ angular.module('chat').controller('TicTacToeController', ['Socket','$rootScope',
 
   $scope.leave = function(){
     console.log('$scope.leave()');
+    $scope['outputPlayer1WinsRoom' + $scope.roomJoined] = 0;
+    $scope['outputPlayer2WinsRoom' + $scope.roomJoined] = 0;
+    $scope['outputTiesRoom' + $scope.roomJoined] = 0;
     //close modal
     //console.log("emitted modals.close event");
     $rootScope.$emit( "modals.close" );
@@ -396,6 +435,8 @@ angular.module('chat').controller('TicTacToeController', ['Socket','$rootScope',
 
 
     $scope.roomJoined = 0;
+
+    stage.removeEventListener("click", stageClickHandler, false);
 
 
   };
@@ -441,6 +482,13 @@ angular.module('chat').controller('TicTacToeController', ['Socket','$rootScope',
     //open modal
     console.log('try open modal');
     $scope.alertSomething();
+
+    stage.removeEventListener("click", stageClickHandler, false);
+
+    $scope['outputPlayer1WinsRoom' + $scope.roomJoined] = 0;
+    $scope['outputPlayer2WinsRoom' + $scope.roomJoined] = 0;
+    $scope['outputTiesRoom' + $scope.roomJoined] = 0;
+
 
   });
 
@@ -617,8 +665,8 @@ angular.module('chat').controller('TicTacToeController', ['Socket','$rootScope',
   function startGame(){
     console.log("startGame()");
     //add click event listener to stage
-    stage.addEventListener("click", stageClickHandler, false);
-    console.log("added click listener");
+    //stage.addEventListener("click", stageClickHandler, false);
+    //console.log("added click listener");
   }
 
 
@@ -691,9 +739,11 @@ angular.module('chat').controller('TicTacToeController', ['Socket','$rootScope',
     if (messagePlayer.player == 1) {
       Player1.symbolPositions.push(messagePlayer.clickedCellID);
       intPlayerNext = 2;
+
     }else{
       Player2.symbolPositions.push(messagePlayer.clickedCellID);
       intPlayerNext = 1;
+
     }
 
     usedCells.push(messagePlayer.clickedCellID);
@@ -717,6 +767,7 @@ angular.module('chat').controller('TicTacToeController', ['Socket','$rootScope',
       gameEnds();
     }
 
+    //if game is still going
     if(!gameOver){
       //update room output status
       var updateObj = {
@@ -731,6 +782,16 @@ angular.module('chat').controller('TicTacToeController', ['Socket','$rootScope',
       };
 
       updateRoomOutput(updateObj);
+
+      //add / remove click listeners
+      var realPlayerTurnName = $scope.RoomData[$scope.roomJoined].Players[intPlayerNext - 1];
+      if (realPlayerTurnName == $scope.clientName) {
+        //add click listener
+        stage.addEventListener("click", stageClickHandler, false);
+      }else{
+        //remove click listener
+        stage.removeEventListener("click", stageClickHandler, false);
+      }
     }
 
 
@@ -857,6 +918,8 @@ angular.module('chat').controller('TicTacToeController', ['Socket','$rootScope',
       };
 
       updatePlayersActiveClass(updateClassObj);
+
+
 
 
     }else{
