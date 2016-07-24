@@ -9,7 +9,11 @@ angular.module('chat').controller('TicTacToeController', ['Socket','$rootScope',
   $scope.gameOver = false;
 
   $scope.clientTurn = false;
-  $scope.clientName = $scope.authentication.user.username;
+
+  if($scope.authentication.user){
+    $scope.clientName = $scope.authentication.user.username;
+  }
+  
 
   $scope.RoomData = {
     "1": {
