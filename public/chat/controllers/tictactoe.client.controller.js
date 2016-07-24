@@ -8,6 +8,9 @@ angular.module('chat').controller('TicTacToeController', ['Socket','$rootScope',
   $scope.roomJoined = 0;
   $scope.gameOver = false;
 
+  $scope.clientTurn = false;
+
+
   $scope.RoomData = {
     "1": {
       "Players": []
@@ -54,6 +57,14 @@ angular.module('chat').controller('TicTacToeController', ['Socket','$rootScope',
     //add click listener
     stage.addEventListener("click", stageClickHandler, false);
 
+    var updateClassObj = {
+      player1Class: "active",
+      player2Class: "",
+      room: $scope.roomJoined
+    };
+
+    updatePlayersActiveClass(updateClassObj);
+
   });
 
   function resetEverything(){
@@ -69,7 +80,7 @@ angular.module('chat').controller('TicTacToeController', ['Socket','$rootScope',
       tie: false, //players tie score
       win: false, //player score
       label: false, //player name
-      status: "Player 1 turn!",
+      status: $scope.RoomData[$scope.roomJoined].Players[0] + ' turn!',
       gameStart: true
     };
     updateRoomOutput(updateObj);
@@ -207,8 +218,10 @@ angular.module('chat').controller('TicTacToeController', ['Socket','$rootScope',
     $scope["outputPlayer1Room" + strRoom + "Class"] = updateClassObj.player1Class;
     $scope["outputPlayer2Room" + strRoom + "Class"] = updateClassObj.player2Class;
 
-    console.log("Room :" + strRoom + " player 1 class: " + $scope["outputPlayer1Room" + strRoom + "Class"]);
-    console.log("Room :" + strRoom + " player 2 class: " + $scope["outputPlayer2Room" + strRoom + "Class"]);
+    //console.log("Room :" + strRoom + " player 1 class: " + $scope["outputPlayer1Room" + strRoom + "Class"]);
+    //console.log("Room :" + strRoom + " player 2 class: " + $scope["outputPlayer2Room" + strRoom + "Class"]);
+
+
 
   }
 
@@ -243,7 +256,7 @@ angular.module('chat').controller('TicTacToeController', ['Socket','$rootScope',
 
 
   $scope.join = function(room){
-
+    console.log('client $scope.join and room is: ' + room);
     //update clientRoomData
     //RoomData[room].Players.push($scope.authentication.username);
     $scope.joined = true;
@@ -316,7 +329,19 @@ angular.module('chat').controller('TicTacToeController', ['Socket','$rootScope',
       updatePlayersActiveClass(updateClassObj);
     }
 
+    //update room output status
+    var updateObj = {
+      room: $scope.roomJoined,
+      playerNumber: 0,
+      playerName: "",
+      tie: false, //players tie score
+      win: false, //player score
+      label: false, //player name
+      status: $scope.RoomData[$scope.roomJoined].Players[0] + " turn!",
+      gameStart: false
+    };
 
+    updateRoomOutput(updateObj);
 
 
   });
@@ -586,7 +611,6 @@ angular.module('chat').controller('TicTacToeController', ['Socket','$rootScope',
     render();
     startGame();
 
-    console.log($scope.RoomData);
   }
 
 
@@ -662,11 +686,14 @@ angular.module('chat').controller('TicTacToeController', ['Socket','$rootScope',
 
   Socket.on('tictactoe', function(messagePlayer){
     //////console.log("socket on tictactoe");
+    var intPlayerNext = 0;
     //update player position
     if (messagePlayer.player == 1) {
       Player1.symbolPositions.push(messagePlayer.clickedCellID);
+      intPlayerNext = 2;
     }else{
       Player2.symbolPositions.push(messagePlayer.clickedCellID);
+      intPlayerNext = 1;
     }
 
     usedCells.push(messagePlayer.clickedCellID);
@@ -689,6 +716,24 @@ angular.module('chat').controller('TicTacToeController', ['Socket','$rootScope',
       cat = true;
       gameEnds();
     }
+
+    if(!gameOver){
+      //update room output status
+      var updateObj = {
+        room: $scope.roomJoined,
+        playerNumber: 0,
+        playerName: "",
+        tie: false, //players tie score
+        win: false, //player score
+        label: false, //player name
+        status: $scope.RoomData[$scope.roomJoined].Players[intPlayerNext - 1] + " turn!",
+        gameStart: false
+      };
+
+      updateRoomOutput(updateObj);
+    }
+
+
 
   });
 
@@ -813,6 +858,7 @@ angular.module('chat').controller('TicTacToeController', ['Socket','$rootScope',
 
       updatePlayersActiveClass(updateClassObj);
 
+
     }else{
       //Player 2 turn
       var updateClassObj = {
@@ -822,7 +868,11 @@ angular.module('chat').controller('TicTacToeController', ['Socket','$rootScope',
       };
 
       updatePlayersActiveClass(updateClassObj);
+      
+      
+      
     }
+
     ////console.log("**************************done render()**************************");
   };//end render
 
