@@ -1,15 +1,105 @@
 html, body {
     margin: 0;
+    width: 100%;
     height: 100%;
+    font-family: 'Nunito', sans-serif;
+    
+
 }
 
 body, h1{
   text-align: center;
   font-family: 'Nunito', sans-serif;
+  /*background-image: url('../images/tictactoe.gif');*/
 }
 
 h1{
   padding-top: 10px;
+}
+
+a {
+  text-decoration: none;
+  color: black;
+}
+
+.btn {
+  padding: 10px;
+  border: 1px solid black;
+  text-decoration: none;
+  border-radius: 8%;
+  color: black;
+  cursor: pointer;
+  background-color: white;
+  font-family: 'Nunito', sans-serif;
+  font-size: 1em;
+}
+
+.btn:hover{
+  background-color: #ccc;
+}
+
+.btn-large{
+  width: 19%;
+  border-radius: 5px;
+}
+
+.form-group{
+  margin: 5px;
+  font-size: 1em;
+}
+
+.form-group input{
+  padding: 5px;
+  font-size: 1em;
+  border-radius: 5px;
+}
+
+
+.authContainer{
+  /*border: 1px solid red;
+  margin-top: 7%;*/
+}
+
+.authContainer .socket{
+  font-size: 2em;
+  font-style: italic;
+  color: #777777;
+}
+
+.authContainer .tictactoe{
+  font-size: 3em;
+  font-weight: bold;
+
+}
+
+.authContainer p{
+  margin-top: 0px;
+  font-style: italic;
+  color: #777777;
+}
+
+.authContainer img {
+  margin-top: 5%;
+}
+
+.authContainer form{
+  margin-top: 5%;
+}
+
+.authContainer div:last-child{
+  margin-top: 8%;
+}
+
+.authContainer form div:last-child{
+  margin-top: 8%;
+}
+
+.textBelowButton{
+  font-size: 0.8em;
+}
+
+.textBelowButton a {
+  text-decoration: none;
 }
 
 #stage{
@@ -65,4 +155,37 @@ td span{
   width: 200px;
   border: 1px solid black;
   padding: 20px 20px 35px;
+}
+
+
+
+#wrapper{
+  position: relative;
+  height: 100%;
+}
+
+#sidebar{
+  position: fixed;
+  z-index: 8;
+  width: 25%;
+  height: 100%;
+  background-color: #1abc9c;
+}
+
+#main_container{
+  position: relative;
+  z-index: 6;
+  margin-left: 25%;
+  /*background-color: blue;*/
+  height: 100%;
+}
+
+.main{
+  width: 600px;
+  margin: auto;
+  /*background-color: green;*/
+  height: 600px;
+  position: relative;
+  top: 6%;
+  text-align: center;
 }

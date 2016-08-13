@@ -3,6 +3,9 @@
 <head>
 	<!-- Use the 'title' property to render a page title  -->
 	<title><%= title %></title>
+	<link href="css/tictactoe.css" rel="stylesheet" type="text/css">
+	<link href="css/modal.css" rel="stylesheet" type="text/css">
+	<link href='https://fonts.googleapis.com/css?family=Nunito:400,700' rel='stylesheet' type='text/css'>
 </head>
 <body>
   	<!-- Display flash messages  -->
@@ -10,24 +13,37 @@
 	   <div class="flash"><%= messages[i] %></div>
 	<% } %>
 
-	<!-- Render the signin form  -->
-	<form action="/signin" method="post">
-		<div>
-			<label>Username:</label>
-			<input type="text" name="username" />
-		</div>
-		<div>
-			<label>Password	:</label>
-			<input type="password" name="password" />
-		</div>
-		<div>
-			<input type="submit" value="Sign In" />
-		</div>
-	</form>
+	<div class="authContainer">
+	  <a href="/">
+        <span class="socket">socket</span>
+        <span class="tictactoe">Tic Tac Toe</span>
+      </a>
+      <p>A Real Time Multiplayer Experience</p>
 
-	<!-- Render the OAuth authentication links  -->
+
+		<!-- Render the signin form  -->
+		<form action="/signin" method="post">
+			<div class="form-group">
+				<label>Username:</label>
+				<input type="text" name="username" />
+			</div>
+			<div class="form-group">
+				<label>Password	:</label>
+				<input type="password" name="password" />
+			</div>
+			<div>
+				<input type="submit" value="Log In" class="btn btn-large" />
+				<br>
+				<span class="textBelowButton">Don't have a username? <a href="/signup">Sign up</a></span>
+			</div>
+		</form>
+	</div>
+
+
+	<!-- Render the OAuth authentication links  
 	<a href="/oauth/facebook">Sign in with Facebook</a>
 	<a href="/oauth/twitter">Sign in with Twitter</a>
 	<a href="/oauth/google">Sign in with Google</a>
+	-->
 </body>
 </html>
