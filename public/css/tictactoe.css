@@ -24,14 +24,15 @@ a {
 
 .btn {
   padding: 10px;
-  border: 1px solid black;
+  border: 1px solid #3498db;
   text-decoration: none;
   border-radius: 8%;
-  color: black;
+  color: white;
   cursor: pointer;
-  background-color: white;
+  background-color: #3498db;
   font-family: 'Nunito', sans-serif;
   font-size: 1em;
+  /* box-shadow: 1px 4px 7px gray; */
 }
 
 .btn:hover{
@@ -39,8 +40,9 @@ a {
 }
 
 .btn-large{
-  width: 19%;
-  border-radius: 5px;
+  width: 97%;
+  border-radius: 0px;
+  margin-left: 1.5%;
 }
 
 .form-group{
@@ -52,6 +54,8 @@ a {
   padding: 5px;
   font-size: 1em;
   border-radius: 5px;
+  width: 96%;
+  height: 30px;
 }
 
 
@@ -83,7 +87,7 @@ a {
 }
 
 .authContainer form{
-  margin-top: 5%;
+  margin-top: 120%;
 }
 
 .authContainer div:last-child{
@@ -170,6 +174,8 @@ td span{
   width: 25%;
   height: 100%;
   background-color: #1abc9c;
+  padding-left: 1%;
+  padding-right: 1%;
 }
 
 #main_container{
