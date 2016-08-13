@@ -85,7 +85,7 @@ a {
 }
 
 .btn:hover{
-  background-color: #ccc;
+  background-color: #2980b9;
 }
 
 .btn-large{
@@ -117,17 +117,16 @@ a {
 .form-group input{
   padding: 5px;
   font-size: 1em;
-  border-radius: 5px;
+  border-radius: 0px;
   width: 96%;
   height: 30px;
+  border: 1px solid white;
 }
 
-
-
-
-
-
-
+.form-group input:focus{
+  outline: none;
+  border: 3px solid #34495e;
+}
 
 
 /* AUTHORIZATION  */
