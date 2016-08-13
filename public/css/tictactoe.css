@@ -61,13 +61,13 @@ a {
 }
 
 .authContainer .socket{
-  font-size: 2em;
+  font-size: 1.5em;
   font-style: italic;
   color: #777777;
 }
 
 .authContainer .tictactoe{
-  font-size: 3em;
+  font-size: 2em;
   font-weight: bold;
 
 }
@@ -188,4 +188,9 @@ td span{
   position: relative;
   top: 6%;
   text-align: center;
+}
+
+
+#sidebar .logo{
+  margin-top: 15%;
 }
