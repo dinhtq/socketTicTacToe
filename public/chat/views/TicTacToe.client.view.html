@@ -3,7 +3,7 @@
     <!-- If the user is not authenticated show the authentication link -->
     <div data-ng-show="!authentication.user" class="authContainer">
       <div id="wrapper">
-        <div id="sidebar">
+        <div id="sidebar" class="logIn">
           <div class="logo">
             <a href="/#!/">
               <span class="socket">socket</span>
@@ -22,7 +22,11 @@
               <input type="password" name="password" placeholder="Password" />
             </div>
             <div>
-              <input type="submit" value="Log In" class="btn btn-large" />
+              <button type="submit" value="Log In" class="btn btn-large">
+                Log in&nbsp;&nbsp;
+                <i class="fa fa-sign-in" aria-hidden="true"></i>
+
+              </button>
               <br>
               <span class="textBelowButton">Don't have a username? <a href="/signup">Sign up</a></span>
             </div>
@@ -43,25 +47,58 @@
         </div>
       </div>
 
-
-
-
-
-
-
-
-    <!--
-
-
-
-
-    -->
     </div>
 
     <!-- Otherwise, show the user details and application links -->
-    <div data-ng-show="authentication.user">
+    <div data-ng-show="authentication.user" class="authContainer">
+
+      <div id="wrapper">
+        <div id="sidebar" class="logIn">
+          <div class="logo">
+            <a href="/#!/">
+              <span class="socket">socket</span>
+              <span class="tictactoe">Tic Tac Toe</span>
+            </a>
+            <p>A Real Time Multiplayer Experience</p>
+          </div>
+
+
+
+          <!-- Display flash messages  
+          <% for(var i in messages) { %>
+             <div class="flash"><%= messages[i] %></div>
+          <% } %>
+          -->
+
+
+        </div>
+        <div id="main_container">
+          <div id="topBar">
+            <div>
+              <span>Hello Jason</span><a href="#" class="btn">Sign out</a>
+            </div>
+          </div>
+          <div class="main">
+        
+          </div>
+        </div>
+      </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
       <div ng-show="!joined">
-        <h1>Hello <span data-ng-bind="authentication.user.username"></span><a href="/signout">Signout</a></h1>
+
 
         <table>
           <th>

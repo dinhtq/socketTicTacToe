@@ -32,9 +32,19 @@ a {
   z-index: 8;
   width: 25%;
   height: 100%;
-  background-color: #1abc9c;
+  background-color: #3498db;
   padding-left: 1%;
   padding-right: 1%;
+}
+
+  .logIn{
+    background-color: #1abc9c !important;
+  }
+
+#topBar{
+  width: 100%;
+  height: 5%;
+  border-bottom: 1px solid gray;
 }
 
 #main_container{
@@ -95,9 +105,14 @@ a {
 }
 
 
+.signUp{
+  background-color: #1abc9c;
+  border: 1px solid #3498db;
+}
 
-
-
+.signUp:hover{
+  background-color: #2ecc71;
+}
 
 
 
@@ -177,6 +192,7 @@ a {
 
 .textBelowButton a {
   text-decoration: none;
+  color: #ecf0f1;
 }
 
 

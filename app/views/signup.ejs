@@ -8,38 +8,58 @@
 	<link href='https://fonts.googleapis.com/css?family=Nunito:400,700' rel='stylesheet' type='text/css'>
 </head>
 <body>
-  	<!-- Display flash messages  -->
+  	<!-- Display flash messages 
 	<% for(var i in messages) { %>
 	   <div class="flash"><%= messages[i] %></div>
 	<% } %>
-
-
-
+	-->
 	<div class="authContainer">
-	  <a href="/">
-        <span class="socket">socket</span>
-        <span class="tictactoe">Tic Tac Toe</span>
-      </a>
-      <p>A Real Time Multiplayer Experience</p>
+		<div id="wrapper">
+		  <div id="sidebar">
+		    <div class="logo">
+		      <a href="/#!/">
+		        <span class="socket">socket</span>
+		        <span class="tictactoe">Tic Tac Toe</span>
+		      </a>
+		      <p>A Real Time Multiplayer Experience</p>
+		    </div>
 
 
-		<!-- Render the signup form  -->
-		<form action="/signup" method="post">
-			<div class="form-group">
-				<label>Username:</label>
-				<input type="text" name="username" />
-			</div>
-			<div class="form-group">
-				<label>Password	:</label>
-				<input type="password" name="password" />
-			</div>
-			<div>
-				<input type="submit" value="Sign Up" class="btn btn-large" />
-				<br>
-				<span class="textBelowButton">Already registered? <a href="/signin">Log in</a></span>
-			</div>
-		</form>
+		    <!-- Render the signup form  -->
+		    <form action="/signup" method="post">
+		      <div class="form-group">
+		        <input type="text" name="username" placeholder="Username" autofocus />
+		      </div>
+		      <div class="form-group">
+		        <input type="password" name="password" placeholder="Password" />
+		      </div>
+		      <div>
+		        <button type="submit" class="btn btn-large signUp">
+		          Sign up&nbsp;&nbsp;
+		          <i class="fa fa-sign-in" aria-hidden="true"></i>
+
+		        </button>
+		        <br>
+		        <span class="textBelowButton">Already registered? <a href="/">Log in</a></span>
+		      </div>
+		    </form>
+
+		    <!-- Display flash messages  
+		    <% for(var i in messages) { %>
+		       <div class="flash"><%= messages[i] %></div>
+		    <% } %>
+		    -->
+
+
+		  </div>
+		  <div id="main_container">
+		    <div class="main">
+		    <img src="images/tictactoe_455_515.gif" width="455" height="515">
+		    </div>
+		  </div>
+		</div>
 	</div>
+
 
 	<!-- Render the OAuth authentication links  
 	<a href="/oauth/facebook">Sign in with Facebook</a>
