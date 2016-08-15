@@ -40,7 +40,7 @@
 
 
         </div>
-        <div id="main_container">
+        <div id="main_container" class="main_container_home">
           <div class="main">
           <img src="images/tictactoe_455_515.gif" width="455" height="515">
           </div>
@@ -81,7 +81,7 @@
               <div class="dropdown">
                 <span>Hello Jason <i class="fa fa-angle-down" aria-hidden="true"></i></span>
                 <div class="dropdown-content">
-                  <a href="/" class="">Sign out</a>
+                  <a href="/signout" class="">Sign out</a>
                 </div>
               </div>
             </div>
@@ -104,17 +104,17 @@
                 <tr>
                   <td>1</td>
                   <td><span style="font-size:1em;" ng-bind="GlobalRoomData['1'].Players.length"></span>/2</td>
-                  <td><button ng-click="join(1)">Join</button></td>
+                  <td><button class="btn btn-large" ng-click="join(1)">Join</button></td>
                 </tr>
                 <tr>
                   <td>2</td>
                   <td><span ng-bind="GlobalRoomData['2'].Players.length" style="font-size:1em;"></span>/2</td>
-                  <td><button ng-click="join(2)">Join</button></td>
+                  <td><button class="btn btn-large" ng-click="join(2)">Join</button></td>
                 </tr>
                 <tr>
                   <td>3</td>
                   <td><span ng-bind="GlobalRoomData['3'].Players.length" style="font-size:1em;"></span>/2</td>
-                  <td><button ng-click="join(3)">Join</button></td>
+                  <td><button class="btn btn-large" ng-click="join(3)">Join</button></td>
                 </tr>
               </table>
             </div>

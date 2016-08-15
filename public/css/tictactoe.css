@@ -91,6 +91,10 @@ a {
   height: 100%;
 }
 
+.main_container_home{
+  background-color: white !important;
+}
+
 .main{
   width: 600px;
   margin: auto;
