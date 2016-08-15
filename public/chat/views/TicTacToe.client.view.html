@@ -74,11 +74,176 @@
         </div>
         <div id="main_container">
           <div id="topBar">
-            <div>
-              <span>Hello Jason</span><a href="#" class="btn">Sign out</a>
+            <div class="leftBox">
+              
+            </div>
+            <div class="rightBox">
+              <span><i class="fa fa-user" aria-hidden="true"></i>&nbsp;Hello Jason</span>
+              <span>
+                <i class="fa fa-cog" aria-hidden="true"></i>
+                <div class="dropdown">
+                  <a href="#" class="">Sign out</a>
+                </div>
+              </span>
             </div>
           </div>
           <div class="main">
+
+            <div ng-show="!joined">
+
+            <div id="RoomLedger">
+              <table id="tblRoomLedger">
+                <th>
+                  Room #
+                </th>
+                <th>
+                  Number of Players
+                </th>
+                <th>
+
+                </th>
+                <tr>
+                  <td>1</td>
+                  <td><span style="font-size:1em;" ng-bind="GlobalRoomData['1'].Players.length"></span>/2</td>
+                  <td><button ng-click="join(1)">Join</button></td>
+                </tr>
+                <tr>
+                  <td>2</td>
+                  <td><span ng-bind="GlobalRoomData['2'].Players.length" style="font-size:1em;"></span>/2</td>
+                  <td><button ng-click="join(2)">Join</button></td>
+                </tr>
+                <tr>
+                  <td>3</td>
+                  <td><span ng-bind="GlobalRoomData['3'].Players.length" style="font-size:1em;"></span>/2</td>
+                  <td><button ng-click="join(3)">Join</button></td>
+                </tr>
+              </table>
+            </div>
+
+
+            </div>
+
+            <div ng-show="joined">
+              <div>
+                Room: <span ng-bind="roomJoined"></span>
+              </div>
+
+              <!--
+              <div id="playAgainContainer">
+                <p>Play again?</p>
+                <div>
+                  <button>Yes</button>&nbsp;<button>No</button>
+                </div>
+              </div>
+            -->
+
+              <div id="stage">
+              </div>
+
+
+
+              <!-- output result -->
+              <div ng-show="roomJoined == 1">
+                <span ng-bind="outputResultRoom1"></span>
+              </div>
+              <div ng-show="roomJoined == 2">
+                <span ng-bind="outputResultRoom2"></span>
+              </div>
+              <div ng-show="roomJoined == 3">
+                <span ng-bind="outputResultRoom3"></span>
+              </div>
+
+              <div ng-show="gameOver">
+                <button ng-click="playAgain()">Play Again</button>
+              </div>
+
+
+
+
+                <table id="tableStatus">
+                  <!-- room output labels (players playing) -->
+                  <tr ng-show="roomJoined == 1">
+                    <td>
+                      <span ng-bind="outputPlayer1Room1" ng-class="outputPlayer1Room1Class"></span> (X)
+                    </td>
+                    <td>
+                      <span ng-bind="outputPlayer2Room1" ng-class="outputPlayer2Room1Class"></span> (O)
+                    </td>
+                    <td>
+                      Ties
+                    </td>
+                  </tr>
+                  <tr ng-show="roomJoined == 2">
+                    <td>
+                      <span ng-bind="outputPlayer1Room2" ng-class="outputPlayer1Room2Class"></span> (X)
+                    </td>
+                    <td>
+                      <span ng-bind="outputPlayer2Room2" ng-class="outputPlayer2Room2Class"></span> (O)
+                    </td>
+                    <td>
+                      Ties
+                    </td>
+                  </tr>
+                  <tr ng-show="roomJoined == 3">
+                    <td>
+                      <span ng-bind="outputPlayer1Room3" ng-class="outputPlayer1Room3Class"></span> (X)
+                    </td>
+                    <td>
+                      <span ng-bind="outputPlayer2Room3" ng-class="outputPlayer2Room3Class"></span> (O)
+                    </td>
+                    <td>
+                      Ties
+                    </td>
+                  </tr>
+
+                  <!-- rooms players wins output -->
+                  <tr ng-show="roomJoined == 1">
+                    <td>
+                      <span ng-bind="outputPlayer1WinsRoom1"></span>
+                    </td>
+                    <td>
+                      <span ng-bind="outputPlayer2WinsRoom1"></span>
+                    </td>
+                    <td>
+                      <span ng-bind="outputTiesRoom1"></span>
+                    </td>
+                  </tr>
+                  <tr ng-show="roomJoined == 2">
+                    <td>
+                      <span ng-bind="outputPlayer1WinsRoom2"></span>
+                    </td>
+                    <td>
+                      <span ng-bind="outputPlayer2WinsRoom2"></span>
+                    </td>
+                    <td>
+                      <span ng-bind="outputTiesRoom2"></span>
+                    </td>
+                  </tr>
+                  <tr ng-show="roomJoined == 3">
+                    <td>
+                      <span ng-bind="outputPlayer1WinsRoom3"></span>
+                    </td>
+                    <td>
+                      <span ng-bind="outputPlayer2WinsRoom3"></span>
+                    </td>
+                    <td>
+                      <span ng-bind="outputTiesRoom3"></span>
+                    </td>
+                  </tr>
+
+                </table>
+
+
+
+
+
+              <br>
+              <a href="/#!/" ng-Click="leave()">Home</a>
+
+
+
+
+            </div><!-- end joined area-->
         
           </div>
         </div>
@@ -97,161 +262,7 @@
 
 
 
-      <div ng-show="!joined">
 
-
-        <table>
-          <th>
-            Room #
-          </th>
-          <th>
-            Number of Players
-          </th>
-          <th>
-
-          </th>
-          <tr>
-            <td>1</td>
-            <td><span style="font-size:1em;" ng-bind="GlobalRoomData['1'].Players.length"></span>/2</td>
-            <td><button ng-click="join(1)">Join</button></td>
-          </tr>
-          <tr>
-            <td>2</td>
-            <td><span ng-bind="GlobalRoomData['2'].Players.length" style="font-size:1em;"></span>/2</td>
-            <td><button ng-click="join(2)">Join</button></td>
-          </tr>
-          <tr>
-            <td>3</td>
-            <td><span ng-bind="GlobalRoomData['3'].Players.length" style="font-size:1em;"></span>/2</td>
-            <td><button ng-click="join(3)">Join</button></td>
-          </tr>
-        </table>
-
-
-
-      </div>
-
-      <div ng-show="joined">
-        <div>
-          Room: <span ng-bind="roomJoined"></span>
-        </div>
-
-        <!--
-        <div id="playAgainContainer">
-          <p>Play again?</p>
-          <div>
-            <button>Yes</button>&nbsp;<button>No</button>
-          </div>
-        </div>
-      -->
-
-        <div id="stage">
-        </div>
-
-
-
-        <!-- output result -->
-        <div ng-show="roomJoined == 1">
-          <span ng-bind="outputResultRoom1"></span>
-        </div>
-        <div ng-show="roomJoined == 2">
-          <span ng-bind="outputResultRoom2"></span>
-        </div>
-        <div ng-show="roomJoined == 3">
-          <span ng-bind="outputResultRoom3"></span>
-        </div>
-
-        <div ng-show="gameOver">
-          <button ng-click="playAgain()">Play Again</button>
-        </div>
-
-
-
-
-          <table id="tableStatus">
-            <!-- room output labels (players playing) -->
-            <tr ng-show="roomJoined == 1">
-              <td>
-                <span ng-bind="outputPlayer1Room1" ng-class="outputPlayer1Room1Class"></span> (X)
-              </td>
-              <td>
-                <span ng-bind="outputPlayer2Room1" ng-class="outputPlayer2Room1Class"></span> (O)
-              </td>
-              <td>
-                Ties
-              </td>
-            </tr>
-            <tr ng-show="roomJoined == 2">
-              <td>
-                <span ng-bind="outputPlayer1Room2" ng-class="outputPlayer1Room2Class"></span> (X)
-              </td>
-              <td>
-                <span ng-bind="outputPlayer2Room2" ng-class="outputPlayer2Room2Class"></span> (O)
-              </td>
-              <td>
-                Ties
-              </td>
-            </tr>
-            <tr ng-show="roomJoined == 3">
-              <td>
-                <span ng-bind="outputPlayer1Room3" ng-class="outputPlayer1Room3Class"></span> (X)
-              </td>
-              <td>
-                <span ng-bind="outputPlayer2Room3" ng-class="outputPlayer2Room3Class"></span> (O)
-              </td>
-              <td>
-                Ties
-              </td>
-            </tr>
-
-            <!-- rooms players wins output -->
-            <tr ng-show="roomJoined == 1">
-              <td>
-                <span ng-bind="outputPlayer1WinsRoom1"></span>
-              </td>
-              <td>
-                <span ng-bind="outputPlayer2WinsRoom1"></span>
-              </td>
-              <td>
-                <span ng-bind="outputTiesRoom1"></span>
-              </td>
-            </tr>
-            <tr ng-show="roomJoined == 2">
-              <td>
-                <span ng-bind="outputPlayer1WinsRoom2"></span>
-              </td>
-              <td>
-                <span ng-bind="outputPlayer2WinsRoom2"></span>
-              </td>
-              <td>
-                <span ng-bind="outputTiesRoom2"></span>
-              </td>
-            </tr>
-            <tr ng-show="roomJoined == 3">
-              <td>
-                <span ng-bind="outputPlayer1WinsRoom3"></span>
-              </td>
-              <td>
-                <span ng-bind="outputPlayer2WinsRoom3"></span>
-              </td>
-              <td>
-                <span ng-bind="outputTiesRoom3"></span>
-              </td>
-            </tr>
-
-          </table>
-
-
-
-
-
-        <br>
-        <a href="/#!/" ng-Click="leave()">Home</a>
-
-
-
-
-      </div><!-- end joined area-->
 
         <!-- modal directive-->
         <div
