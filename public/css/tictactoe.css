@@ -326,6 +326,10 @@ td span{
 
 
 
+div.m-modals > .modal{
+  margin-left: 0px !important;
+}
+
 
 
 
