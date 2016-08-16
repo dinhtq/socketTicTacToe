@@ -75,11 +75,14 @@
         <div id="main_container">
           <div id="topBar">
             <div class="leftBox">
-              
+              <span ng-show="joined">
+                Room: <span ng-bind="roomJoined"></span>
+              </span>
+              <span ng-show="joined"><a href="/#!/" ng-Click="leave()" class="btn btn-small">Leave room</a></span>
             </div>
             <div class="rightBox">
               <div class="dropdown">
-                <span>Hello Jason <i class="fa fa-angle-down" aria-hidden="true"></i></span>
+                <span>Hello <span data-ng-bind="authentication.user.username"></span> <i class="fa fa-angle-down" aria-hidden="true"></i></span>
                 <div class="dropdown-content">
                   <a href="/signout" class="">Sign out</a>
                 </div>
@@ -123,9 +126,7 @@
             </div>
 
             <div ng-show="joined">
-              <div>
-                Room: <span ng-bind="roomJoined"></span>
-              </div>
+
 
               <!--
               <div id="playAgainContainer">
@@ -234,11 +235,6 @@
 
 
 
-
-
-              <br>
-              <a href="/#!/" ng-Click="leave()">Home</a>
-
                 <!-- modal directive-->
                 <div
                   bn-modals
@@ -257,9 +253,12 @@
                       </p>
 
                       <img src="images/preloader.gif" width="64px" height="64px">
-
+                      <br>
+                      <span>Waiting for another player to join...</span>
+                      <br>
+                      <br>
                       <p>
-                          <button ng-click="leave()">Go home</button>
+                          <button class="btn btn-large" ng-click="leave()">Pick another room</button>
                       </p>
 
                       <!-- This is to demonstrate that we can jump from one modal to another. -->

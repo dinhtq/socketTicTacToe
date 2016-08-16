@@ -17,9 +17,9 @@ h1{
   padding-top: 10px;
 }
 
-a {
-  text-decoration: none;
-  color: black;
+a, .link {
+  text-decoration: none !important;
+  color: black !important;
 }
 
 #wrapper{
@@ -42,11 +42,12 @@ a {
   }
 
 #topBar{
-  width: 100%;
+  width: 73%;
   height: 31px;
   border-bottom: 1px solid #EDEDED;
   padding-top: 7px;
   background-color: #EDEDED;
+  margin-left: 25%;
 }
 
 #topBar .leftBox{
@@ -84,11 +85,12 @@ a {
 }
 
 #main_container{
-  position: relative;
+  position: fixed;
   z-index: 6;
-  margin-left: 27%;
+  margin-left: 2%;
   background-color: #F7F7F7;
   height: 100%;
+  width: 100%;
 }
 
 .main_container_home{
@@ -99,16 +101,17 @@ a {
   width: 600px;
   margin: auto;
   /*background-color: green;*/
-  height: 600px;
+  height: 100%;
   position: relative;
-  top: 6%;
   text-align: center;
+  margin-left: 40%;
 }
 
 #RoomLedger{
   margin-top: 8%;
   background-color: white;
   box-shadow: 0px 4px 3px -3px gray;
+  margin-bottom: 100%;
 }
 
 #tblRoomLedger{
@@ -120,7 +123,7 @@ a {
 
 
 th{
-  border-bottom: 1px solid #F7F7F7;
+  border-bottom: 3px solid #F7F7F7;
 }
 
 th, td {
@@ -158,6 +161,12 @@ th, td {
 
 .btn:hover{
   background-color: #2980b9;
+}
+
+.btn-small{
+  color: white !important;
+  padding: 5px;
+  font-size: .8em;
 }
 
 .btn-large{
