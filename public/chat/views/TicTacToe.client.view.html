@@ -62,9 +62,17 @@
             <p>A Real Time Multiplayer Experience</p>
           </div>
 
+          <div id="chatContainer">
+            <div id="outputContainer">
+              
+            </div>
+            <div id="inputContainer">
+              
+            </div>
+          </div>
 
 
-          <!-- Display flash messages  
+          <!-- Display flash messages (somehow with angular)
           <% for(var i in messages) { %>
              <div class="flash"><%= messages[i] %></div>
           <% } %>
@@ -78,7 +86,24 @@
               <span ng-show="joined">
                 Room: <span ng-bind="roomJoined"></span>
               </span>
-              <span ng-show="joined"><a href="/#!/" ng-Click="leave()" class="btn btn-small">Leave room</a></span>
+              <span ng-show="joined">
+                <a href="/#!/" ng-Click="leave()" class="btn btn-small">Leave room</a>
+              </span>
+              <span ng-show="joined" style="margin-left: 22%; position: fixed;">
+                <!-- output result -->
+                <span ng-show="roomJoined == 1">
+                  <span ng-bind="outputResultRoom1"></span>
+                </span>
+                <span ng-show="roomJoined == 2">
+                  <span ng-bind="outputResultRoom2"></span>
+                </span>
+                <span ng-show="roomJoined == 3">
+                  <span ng-bind="outputResultRoom3"></span>
+                </span>
+                <span ng-show="gameOver">
+                  <button ng-click="playAgain()" class="btn btn-small">Play Again</button>
+                </span>
+              </span>
             </div>
             <div class="rightBox">
               <div class="dropdown">
@@ -128,34 +153,11 @@
             <div ng-show="joined">
 
 
-              <!--
-              <div id="playAgainContainer">
-                <p>Play again?</p>
-                <div>
-                  <button>Yes</button>&nbsp;<button>No</button>
-                </div>
-              </div>
-            -->
-
               <div id="stage">
               </div>
 
 
 
-              <!-- output result -->
-              <div ng-show="roomJoined == 1">
-                <span ng-bind="outputResultRoom1"></span>
-              </div>
-              <div ng-show="roomJoined == 2">
-                <span ng-bind="outputResultRoom2"></span>
-              </div>
-              <div ng-show="roomJoined == 3">
-                <span ng-bind="outputResultRoom3"></span>
-              </div>
-
-              <div ng-show="gameOver">
-                <button ng-click="playAgain()">Play Again</button>
-              </div>
 
 
 

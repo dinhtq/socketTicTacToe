@@ -53,12 +53,32 @@ a, .link {
 #topBar .leftBox{
   float: left;
   margin-left: 1%;
+  width: 76%;
+  text-align: left;
 }
 
 #topBar .rightBox{
   float: right;
   margin-right: 3%;
 }
+
+
+#chatContainer{
+  height: 70%;
+  box-shadow: -3px 23px 31px -1px gray;
+}
+
+#outputContainer{
+  height: 75%;
+  background-color: #34495e;
+}
+
+#inputContainer{
+  height: 25%;
+  background-color: #34495e;
+  border: 10px solid white;
+}
+
 
 .dropdown {
     position: relative;
