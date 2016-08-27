@@ -62,12 +62,26 @@
             <p>A Real Time Multiplayer Experience</p>
           </div>
 
-          <div id="chatContainer">
+          <div id="chatContainer" ng-controller="ChatController">
             <div id="outputContainer">
-              
+                <div id="middleChatContainer">
+                  <div data-ng-repeat="message in messages" data-ng-switch="message.type">
+                    <span data-ng-switch-when='status'>
+                      <span data-ng-bind="message.username"></span>
+                      <span data-ng-bind="message.text"></span>
+                    </span>
+                    <span data-ng-switch-default>
+                      <span data-ng-bind="message.created | date:'mediumTime'"></span>
+                      <span data-ng-bind="message.username"></span>
+                      <span>:</span>
+                      <span data-ng-bind="message.text"></span>
+                    </span>
+                  </div>
+                </div>
             </div>
             <div id="inputContainer">
-              
+              <input id="inputChat" type="text" ng-model="chatText" placeholder="{{chatPlaceholder}}" autofocus/> 
+              <button ng-click="clickedChatText()"><i class="fa fa-arrow-circle-o-up fa-2x" aria-hidden="true"></i></button>
             </div>
           </div>
 

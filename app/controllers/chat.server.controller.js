@@ -14,6 +14,7 @@ module.exports = function(io, socket) {
   // chatMessage event handler that will take care of messages sent from the
   // socket client
   socket.on('chatMessage', function(message){
+    console.log("onChatMessage");
     message.type = 'message';
     message.created = Date.now();
     message.username = socket.request.user.username;

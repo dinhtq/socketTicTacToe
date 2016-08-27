@@ -64,21 +64,37 @@ a, .link {
 
 
 #chatContainer{
-  height: 70%;
+  height: 54%;
   box-shadow: -3px 23px 31px -1px gray;
 }
 
 #outputContainer{
-  height: 75%;
+  height: 97%;
   background-color: #34495e;
+}
+
+#middleChatContainer{
+  height: 100%;
 }
 
 #inputContainer{
-  height: 25%;
+  height: 13%;
   background-color: #34495e;
-  border: 10px solid white;
+  border-top: 1px solid white;
 }
 
+#inputContainer button{
+  position: relative;
+  top: 8%;
+  border-radius: 1px;
+  background-color: #ecf0f1;
+}
+
+#inputChat{
+  width: 80%;
+  margin-top: 3%;
+  height: 47%; 
+}
 
 .dropdown {
     position: relative;
