@@ -75,6 +75,8 @@ a, .link {
 
 #middleChatContainer{
   height: 100%;
+  text-align: left;
+  padding: 10px;
 }
 
 #inputContainer{
