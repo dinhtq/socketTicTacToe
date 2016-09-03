@@ -5,12 +5,13 @@ angular.module('chat').controller('ChatController', ['$scope', 'Socket',
     $scope.chatText = "";
     $scope.chatPlaceholder = "chat away...";
 
+    var eleMiddleChatContainer; 
 
     $scope.clickedChatText = function(){
       console.log($scope.chatText);
       // don't send empty chat text
       if($scope.chatText.length > 0){
-        console.log('hi');
+
         // create message
         var message = {
           text: $scope.chatText
@@ -20,7 +21,9 @@ angular.module('chat').controller('ChatController', ['$scope', 'Socket',
         //clear input
         $scope.chatText = "";
         //set input focus
-        angular.element('#inputChat').focus();
+        document.getElementById('#inputChat').focus();
+
+
       }
 
     };
@@ -29,6 +32,7 @@ angular.module('chat').controller('ChatController', ['$scope', 'Socket',
 
     //send new messages by emitting the chatMessage event to the socket server
     $scope.sendMessage = function(){
+      console.log('sendMessage');
       var message = {
         text: this.messageText
       };
@@ -47,10 +51,26 @@ angular.module('chat').controller('ChatController', ['$scope', 'Socket',
     //chatMessage event listener that adds retrieved messages to messages[]
     Socket.on('chatMessage', function(message){
       console.log('chat controller Socket.on');
-      
-      // scroll chat container view up
-      
+            
       $scope.messages.push(message);
+
+      eleMiddleChatContainer = document.getElementById('middleChatContainer');
+
+    });
+
+    $scope.$on('ngRepeatFinished', function (ngRepeatFinishedEvent) {
+       console.log('Event captured in the controller, when finished rendering');
+       eleMiddleChatContainer.scrollTop = eleMiddleChatContainer.scrollHeight;
+ 
+    });
+
+    // binding enter key
+    document.getElementById("inputChat")
+        .addEventListener("keyup", function(event) {
+        event.preventDefault();
+        if (event.keyCode == 13) {
+          $scope.clickedChatText();
+        }
     });
 
   }]);

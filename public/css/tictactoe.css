@@ -74,9 +74,11 @@ a, .link {
 }
 
 #middleChatContainer{
-  height: 100%;
+  height: 92%;
   text-align: left;
   padding: 10px;
+  overflow: auto;
+  color: white;
 }
 
 #inputContainer{
