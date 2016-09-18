@@ -75,19 +75,39 @@ module.exports = function(io, socket, clientsConnected, RoomData){
 
 
   //event handler - inform all sockets about disconnected player
-  socket.on('disconnectMessage', function(username){
+  socket.on('disconnectMessage', function(disconnectMessage){
     console.log(socket.request.user.username + ' disconnected');
     //remove user from clientsConnected
-    var indexUser = clientsConnected.indexOf(username);
-    clientsConnected = clientsConnected.splice(indexUser, 1);
+    var indexUser = clientsConnected.indexOf(disconnectMessage.username);
+    clientsConnected.splice(indexUser, 1);
     console.log(clientsConnected);
+
+    //remove user from RoomData
+    console.log(RoomData);
+    var indexFound = RoomData[disconnectMessage.room].Players.indexOf(disconnectMessage.username);
+    RoomData[disconnectMessage.room].Players.splice(indexFound, 1);
+    console.log(RoomData);
+    
   });
 
   socket.on('disconnect', function(){
     console.log(socket.request.user.username + ' disconnected');
     //remove user from clientsConnected
     var indexUser = clientsConnected.indexOf(socket.request.user.username);
-    clientsConnected = clientsConnected.splice(indexUser, 1);
+    clientsConnected.splice(indexUser, 1);
+
+    console.log(RoomData);
+    //remove user from RoomData
+    for (var room in RoomData) {
+      for (var userIndex in RoomData[room].Players) {
+        if (RoomData[room].Players[userIndex] === socket.request.user.username) {
+          RoomData[room].Players.splice(userIndex, 1);
+        }
+      }
+    }
+
+    console.log(RoomData);
+
   });
 
 

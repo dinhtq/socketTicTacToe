@@ -403,7 +403,12 @@ angular.module('chat').controller('TicTacToeController', ['Socket','$rootScope',
     //console.log("emitted modals.close event");
     $rootScope.$emit( "modals.close" );
     $scope.joined = false;
-    Socket.emit('disconnectMessage', $scope.authentication.username);
+    // create disConnnectMessage obj
+    var disconnectMessage = {
+      username: $scope.authentication.username,
+      room: $scope.roomJoined
+    };
+    Socket.emit('disconnectMessage', disconnectMessage);
 
 
     var leaveMessage = {
@@ -520,8 +525,6 @@ angular.module('chat').controller('TicTacToeController', ['Socket','$rootScope',
     };
 
     if($scope.GlobalRoomData[$scope.roomJoined].Players.length == 0){
-      //outputPlayer1.innerHTML = "Player 1";
-      //outputPlayer2.innerHTML = "Player 2";
       //update player 1
       updateObj.playerNumber = 1;
       updateObj.playerName = "Player 1";
@@ -532,8 +535,6 @@ angular.module('chat').controller('TicTacToeController', ['Socket','$rootScope',
       updateRoomOutput(updateObj);
 
     }else if($scope.GlobalRoomData[$scope.roomJoined].Players.length == 1){
-      //outputPlayer1.innerHTML = $scope.GlobalRoomData[leftRoomMessage.roomLeft].Players[0];
-      //outputPlayer2.innerHTML = "Player 2";
       //update player 1
       updateObj.playerNumber = 1;
       updateObj.playerName = $scope.GlobalRoomData[$scope.roomJoined].Players[0];
@@ -543,8 +544,6 @@ angular.module('chat').controller('TicTacToeController', ['Socket','$rootScope',
       updateObj.playerName = "Player 2";
       updateRoomOutput(updateObj);
     }else{
-      //outputPlayer1.innerHTML = $scope.GlobalRoomData[leftRoomMessage.roomLeft].Players[0];
-      //outputPlayer2.innerHTML = $scope.GlobalRoomData[leftRoomMessage.roomLeft].Players[1];
       //update player 1
       updateObj.playerNumber = 1;
       updateObj.playerName = $scope.GlobalRoomData[$scope.roomJoined].Players[0];
@@ -555,12 +554,6 @@ angular.module('chat').controller('TicTacToeController', ['Socket','$rootScope',
       updateRoomOutput(updateObj);
     }
 
-    //console.log("p1r1" + $scope.outputPlayer1Room1);
-    //console.log("p2r1" + $scope.outputPlayer2Room1);
-    //console.log("p1r2" + $scope.outputPlayer1Room2);
-    //console.log("p2r2" + $scope.outputPlayer2Room2);
-    //console.log("p1r3" + $scope.outputPlayer1Room3);
-    //console.log("p2r3" + $scope.outputPlayer2Room3);
 
   });
 
