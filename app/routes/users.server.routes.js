@@ -17,7 +17,8 @@ module.exports = function(app) {
 	   .get(users.renderSignin)
 	   .post(passport.authenticate('local'), 
 	   		function(req, res) {
-	   			res.redirect('/');
+	   			var user = req.user;
+	   			res.send(user);
 	   		});
 
 	// Set up the Facebook OAuth routes

@@ -14,8 +14,9 @@
 
 
           <!-- Render the signin form  -->
-          <div ng-controller="signInForm">
+          <div ng-controller="signInForm" id="signInForm">
             <form>
+              <div data-ng-show="!isValid" style="color:#D91E18">Incorrect username or password</div>
               <div class="form-group">
                 <input ng-model="username" type="text" name="username" placeholder="Username" autofocus />
               </div>
