@@ -15,11 +15,10 @@ module.exports = function(app) {
 	// Set up the 'signin' routes
 	app.route('/signin')
 	   .get(users.renderSignin)
-	   .post(passport.authenticate('local', {
-			successRedirect: '/',
-			failureRedirect: '/signin',
-			failureFlash: true
-	   }));
+	   .post(passport.authenticate('local'), 
+	   		function(req, res) {
+	   			res.redirect('/');
+	   		});
 
 	// Set up the Facebook OAuth routes
 	app.get('/oauth/facebook', passport.authenticate('facebook', {
