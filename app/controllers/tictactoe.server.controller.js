@@ -57,9 +57,9 @@ module.exports = function(io, socket, clientsConnected, RoomData){
     io.in(leaveMessage.room).emit('leftRoomMessage', leftRoomMessage);
 
     //remove client from RoomData
-    var indexPlayerInRoomData = RoomData[leaveMessage.room].Players.indexOf(socket.request.user.username);
-    console.log('indexPlayerInRoomData: ' + indexPlayerInRoomData);
-    RoomData[leaveMessage.room].Players.splice(indexPlayerInRoomData, 1);
+    // var indexPlayerInRoomData = RoomData[leaveMessage.room].Players.indexOf(socket.request.user.username);
+    // console.log('indexPlayerInRoomData: ' + indexPlayerInRoomData);
+    // RoomData[leaveMessage.room].Players.splice(indexPlayerInRoomData, 1);
 
     //inform everyone that someone left
     var leftRoomMessage = {
@@ -76,6 +76,7 @@ module.exports = function(io, socket, clientsConnected, RoomData){
 
   //event handler - inform all sockets about disconnected player
   socket.on('disconnectMessage', function(disconnectMessage){
+    console.log('socket on disconnectMessage');
     console.log(socket.request.user.username + ' disconnected');
     //remove user from clientsConnected
     var indexUser = clientsConnected.indexOf(disconnectMessage.username);
@@ -84,13 +85,17 @@ module.exports = function(io, socket, clientsConnected, RoomData){
 
     //remove user from RoomData
     console.log(RoomData);
+    console.log('disconnectMessage = ');
+    console.log(disconnectMessage);
     var indexFound = RoomData[disconnectMessage.room].Players.indexOf(disconnectMessage.username);
+    console.log('indexFound: ' + indexFound);
     RoomData[disconnectMessage.room].Players.splice(indexFound, 1);
     console.log(RoomData);
     
   });
 
   socket.on('disconnect', function(){
+    console.log('socket on disconnect');
     console.log(socket.request.user.username + ' disconnected');
     //remove user from clientsConnected
     var indexUser = clientsConnected.indexOf(socket.request.user.username);

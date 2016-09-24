@@ -404,10 +404,12 @@ angular.module('chat').controller('TicTacToeController', ['Socket','$rootScope',
     $rootScope.$emit( "modals.close" );
     $scope.joined = false;
     // create disConnnectMessage obj
+    console.dir('disconnectMessage');
     var disconnectMessage = {
-      username: $scope.authentication.username,
+      username: $scope.authentication.user.username,
       room: $scope.roomJoined
     };
+    console.dir(disconnectMessage);
     Socket.emit('disconnectMessage', disconnectMessage);
 
 
@@ -418,33 +420,33 @@ angular.module('chat').controller('TicTacToeController', ['Socket','$rootScope',
     resetEverything();
     Socket.emit('leaveMessage', leaveMessage);
 
-    console.log('removing player from RoomData');
-    //remove player from RoomData
-    var indexPlayerInRoomData = $scope.RoomData[leftRoomMessage.room].Players.indexOf(leftRoomMessage.player);
-    //update output player names status
-    var updateObj = {
-      room: $scope.roomJoined,
-      playerNumber: 0,
-      playerName: "",
-      tie: false,
-      win: false,
-      label: true,
-      status: ""
-    };
-    if (indexPlayerInRoomData == 0) {
-      //outputPlayer1.innerHTML = "Player 1";
-      updateObj.playerNumber = 1;
-      updateObj.playerName = "Player 1";
-      updateRoomOutput(updateObj);
-    }else{
-      //outputPlayer2.innerHTML = "Player 2";
-      updateObj.playerNumber = 2;
-      updateObj.playerName = "Player 2";
-      updateRoomOutput(updateObj);
-    }
-
+    // console.log('removing player from RoomData');
+    // //remove player from RoomData
+    // var indexPlayerInRoomData = $scope.RoomData[leftRoomMessage.room].Players.indexOf(leftRoomMessage.player);
+    // //update output player names status
+    // var updateObj = {
+    //   room: $scope.roomJoined,
+    //   playerNumber: 0,
+    //   playerName: "",
+    //   tie: false,
+    //   win: false,
+    //   label: true,
+    //   status: ""
+    // };
+    // if (indexPlayerInRoomData == 0) {
+    //   //outputPlayer1.innerHTML = "Player 1";
+    //   updateObj.playerNumber = 1;
+    //   updateObj.playerName = "Player 1";
+    //   updateRoomOutput(updateObj);
+    // }else{
+    //   //outputPlayer2.innerHTML = "Player 2";
+    //   updateObj.playerNumber = 2;
+    //   updateObj.playerName = "Player 2";
+    //   updateRoomOutput(updateObj);
+    // }
 
     $scope.roomJoined = 0;
+    
 
     stage.removeEventListener("click", stageClickHandler, false);
 
@@ -498,6 +500,8 @@ angular.module('chat').controller('TicTacToeController', ['Socket','$rootScope',
     $scope['outputPlayer1WinsRoom' + $scope.roomJoined] = 0;
     $scope['outputPlayer2WinsRoom' + $scope.roomJoined] = 0;
     $scope['outputTiesRoom' + $scope.roomJoined] = 0;
+
+    
 
 
   });
@@ -555,6 +559,7 @@ angular.module('chat').controller('TicTacToeController', ['Socket','$rootScope',
       updateRoomOutput(updateObj);
     }
 
+    
 
   });
 
@@ -1154,6 +1159,9 @@ angular.module('chat').controller('TicTacToeController', ['Socket','$rootScope',
 
     //remove event listener for stage
     stage.removeEventListener("click", stageClickHandler, false);
+
+    //save user score to db
+    
 
   }
 
