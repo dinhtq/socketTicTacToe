@@ -151,6 +151,16 @@ exports.signout = function(req, res) {
 	res.redirect('/');
 };
 
+// get a user by id
+exports.getById = function(req, res, next) {
+
+};
+
+// save a user score
+exports.saveUserScore = function(req, res) {
+
+};
+
 // Create a new controller middleware that is used to authorize authenticated operations 
 exports.requiresLogin = function(req, res, next) {
 	// If a user is not authenticated send the appropriate error message

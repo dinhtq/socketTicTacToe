@@ -21,6 +21,9 @@ module.exports = function(app) {
 	   			res.send(user);
 	   		});
 
+	app.route('/saveScore')
+		.post(users.getById, users.saveUserScore);
+
 	// Set up the Facebook OAuth routes
 	app.get('/oauth/facebook', passport.authenticate('facebook', {
 		failureRedirect: '/signin'

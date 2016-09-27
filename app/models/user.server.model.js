@@ -48,6 +48,9 @@ var UserSchema = new Schema({
 		type: Date,
 		// Create a default 'created' value
 		default: Date.now
+	},
+	score: {
+		type: Number
 	}
 });
 
