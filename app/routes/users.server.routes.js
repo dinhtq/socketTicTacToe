@@ -21,8 +21,8 @@ module.exports = function(app) {
 	   			res.send(user);
 	   		});
 
-	app.route('/saveScore')
-		.post(users.getById, users.saveUserScore);
+	app.route('/api/users/:userId')
+		.post(users.updateUser);
 
 	// Set up the Facebook OAuth routes
 	app.get('/oauth/facebook', passport.authenticate('facebook', {
@@ -57,4 +57,7 @@ module.exports = function(app) {
 
 	// Set up the 'signout' route
 	app.get('/signout', users.signout);
+
+	// param
+	app.param('userId', users.getById);
 };

@@ -31,6 +31,7 @@ module.exports = function(db) {
 		app.use(compress());
 	}
 
+
 	// Use the 'body-parser' and 'method-override' middleware functions
 	app.use(bodyParser.urlencoded({
 		extended: true

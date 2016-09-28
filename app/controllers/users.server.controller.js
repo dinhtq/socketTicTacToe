@@ -152,12 +152,32 @@ exports.signout = function(req, res) {
 };
 
 // get a user by id
-exports.getById = function(req, res, next) {
+exports.getById = function(req, res, next, userId) {
+	User.findById(userId).exec(function(err, user){
+		if (err) return next(err);
+		if (!user) return next(new Error('Failed to load user ' + userId));
 
+		req.user = user;
+		next();
+	});
+	
 };
 
-// save a user score
-exports.saveUserScore = function(req, res) {
+// update a user 
+exports.updateUser = function(req, res) {
+	var user = req.user;
+
+	user.score = req.body.score;
+
+	user.save(function(err) {
+		if (err) {
+			return res.status(400).send({
+				message: getErrorMessage(err)
+			});
+		} else {
+			res.json(user);
+		}
+	});
 
 };
 
