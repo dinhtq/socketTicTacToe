@@ -59,7 +59,7 @@ a, .link {
 
 #topBar .rightBox{
   float: right;
-  margin-right: 3%;
+  margin-right: 5%;
 }
 
 
@@ -380,7 +380,9 @@ div.m-modals > .modal{
 }
 
 
+#ledger {
 
+}
 
 
 

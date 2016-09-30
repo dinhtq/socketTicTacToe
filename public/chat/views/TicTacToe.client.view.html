@@ -164,9 +164,29 @@
               </table>
             </div>
 
-              <div id="roomGif">
-                <img src="images/tictactoe2.gif" width="200" height="226">
-              </div>
+            <div id="RoomLedger" ng-controller="usersController" style="width: 47%; float: left;">
+              <table id="tblRoomLedger">
+                <th>
+                  Players Connected
+                </th>
+                <tr ng-repeat="player in playersConnected">
+                  <td>{{ player }}</td>
+                </tr>
+              </table>
+            </div>
+
+            <div id="RoomLedger" ng-controller="usersController" style="width: 47%; float: right;">
+              <table id="tblRoomLedger">
+                <th>
+                  Players Connected
+                </th>
+                <tr ng-repeat="player in playersConnected">
+                  <td>{{ player }}</td>
+                </tr>
+              </table>
+            </div>
+
+
 
             </div>
 

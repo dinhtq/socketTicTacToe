@@ -91,6 +91,8 @@ module.exports = function(io, socket, clientsConnected, RoomData){
     console.log('indexFound: ' + indexFound);
     RoomData[disconnectMessage.room].Players.splice(indexFound, 1);
     console.log(RoomData);
+
+    io.emit('signInMessage', clientsConnected);
     
   });
 
@@ -112,6 +114,7 @@ module.exports = function(io, socket, clientsConnected, RoomData){
     }
 
     console.log(RoomData);
+    io.emit('signInMessage', clientsConnected);
 
   });
 

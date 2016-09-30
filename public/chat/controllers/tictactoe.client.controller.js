@@ -387,8 +387,8 @@ angular.module('chat').controller('TicTacToeController', ['Socket','$rootScope',
   });
 
   Socket.on('joinMessageGlobal', function(joinMessage){
-    ////console.log('someone joined a room');
-    ////console.log($scope.GlobalRoomData);
+    //console.log('someone joined a room');
+    //console.log($scope.GlobalRoomData);
     $scope.GlobalRoomData = joinMessage.roomData;
 
 
