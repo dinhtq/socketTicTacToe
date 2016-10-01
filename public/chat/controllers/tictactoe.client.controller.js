@@ -404,13 +404,13 @@ angular.module('chat').controller('TicTacToeController', ['Socket','$rootScope',
     $rootScope.$emit( "modals.close" );
     $scope.joined = false;
     // create disConnnectMessage obj
-    console.dir('disconnectMessage');
-    var disconnectMessage = {
-      username: $scope.authentication.user.username,
-      room: $scope.roomJoined
-    };
-    console.dir(disconnectMessage);
-    Socket.emit('disconnectMessage', disconnectMessage);
+    // console.dir('disconnectMessage');
+    // var disconnectMessage = {
+    //   username: $scope.authentication.user.username,
+    //   room: $scope.roomJoined
+    // };
+    // console.dir(disconnectMessage);
+    // Socket.emit('disconnectMessage', disconnectMessage);
 
 
     var leaveMessage = {

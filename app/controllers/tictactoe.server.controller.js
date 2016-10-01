@@ -44,7 +44,7 @@ module.exports = function(io, socket, clientsConnected, RoomData){
   });
 
   socket.on('leaveMessage', function(leaveMessage){
-
+    console.log('socket on leaveMessage');
 
     socket.leave(leaveMessage.room);
 
@@ -56,10 +56,10 @@ module.exports = function(io, socket, clientsConnected, RoomData){
     //inform the room that client left
     io.in(leaveMessage.room).emit('leftRoomMessage', leftRoomMessage);
 
-    //remove client from RoomData
-    // var indexPlayerInRoomData = RoomData[leaveMessage.room].Players.indexOf(socket.request.user.username);
+    // remove client from RoomData
+    var indexPlayerInRoomData = RoomData[leaveMessage.room].Players.indexOf(socket.request.user.username);
     // console.log('indexPlayerInRoomData: ' + indexPlayerInRoomData);
-    // RoomData[leaveMessage.room].Players.splice(indexPlayerInRoomData, 1);
+    RoomData[leaveMessage.room].Players.splice(indexPlayerInRoomData, 1);
 
     //inform everyone that someone left
     var leftRoomMessage = {
