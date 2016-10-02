@@ -1,5 +1,6 @@
-angular.module('chat').controller('TicTacToeController', ['Socket','$rootScope', '$scope', 'Authentication', '$location', '$window', 'modals',
-  function(Socket, $rootScope, $scope, Authentication, $location, $window, modals){
+angular.module('chat').controller('TicTacToeController', ['Socket','$rootScope', '$scope', 'Authentication', 
+  '$location', '$window', 'modals', '$http',
+  function(Socket, $rootScope, $scope, Authentication, $location, $window, modals, $http){
 
   $scope.authentication = Authentication;
   $scope.joined = false;
@@ -1120,8 +1121,9 @@ angular.module('chat').controller('TicTacToeController', ['Socket','$rootScope',
 
 
   function gameEnds(){
-    //console.log("gameEnds()");
+    console.log("gameEnds()");
     $scope.gameOver = true;
+    var clientPlayerNumber = $scope.RoomData[$scope.roomJoined].Players[0] === Authentication.user.username ? 1 : 2;
 
     //update room status output
     var updateObj = {
@@ -1136,31 +1138,38 @@ angular.module('chat').controller('TicTacToeController', ['Socket','$rootScope',
     if (cat) {
       updateObj.status = "CAT!";
       updateRoomOutput(updateObj);
-      //output.innerHTML = "CAT!";
+
     }
 
     if (Player1.won) {
       updateObj.playerNumber = 1;
       updateObj.status = "Wins!";
       updateRoomOutput(updateObj);
-      //output.innerHTML = "Player 1 Wins!";
+
+      // update user score
+      if(clientPlayerNumber === 1) {
+        $scope.updateUserScore();
+      }
     }
     else if (Player2.won){
       updateObj.playerNumber = 2;
       updateObj.status = "Wins!";
       updateRoomOutput(updateObj);
-      //output.innerHTML = "Player 2 Wins!";
+
+      // update user score
+      if (clientPlayerNumber === 2) {
+        $scope.updateUserScore();
+      }
     }
     else{
       updateObj.status = "CAT!";
       updateRoomOutput(updateObj);
-      //output.innerHTML = "CAT!";
+
     }
 
     //remove event listener for stage
     stage.removeEventListener("click", stageClickHandler, false);
 
-    //save user score to db
     
 
   }
@@ -1239,6 +1248,55 @@ angular.module('chat').controller('TicTacToeController', ['Socket','$rootScope',
 
 
 
+  $scope.getList = function(){
+    // GET
+    $http({
+      method: 'GET',
+      url: '/api/userScores'
+    }).then(function successCallback(response){
+      console.log('success GET user score');
+      console.log(response);
+    }, function errorCallback(response){
+      console.log('error GET user Score');
+      console.log(response);
+    });
+  };
+
+  $scope.updateUserScore = function(){
+    console.log('update');
+    console.log(Authentication.user);
+    console.log('/api/userScores/' + Authentication.user._id);
+    // PUT
+    $http({
+      method: 'PUT',
+      url: '/api/userScores/' + Authentication.user._id
+    }).then(function successCallback(response){
+      console.log('success updated user score');
+      console.log(response);
+    }, function errorCallback(response){
+      console.log('error updated user Score');
+      console.log(response);
+    });
+  };
+
+  $scope.delete = function(){
+    console.log('delete');
+    console.log('/api/userScores/57f04674111972534365914c');
+    // PUT
+    $http({
+      method: 'DELETE',
+      url: '/api/userScores/57f04674111972534365914c'
+    }).then(function successCallback(response){
+      console.log('success delete user score');
+      console.log(response);
+    }, function errorCallback(response){
+      console.log('error delete user Score');
+      console.log(response);
+    });
+  };
+
+
+
 }]);
 
 
@@ -1258,4 +1316,4 @@ angular.module('chat').controller('TicTacToeController', ['Socket','$rootScope',
 
 
 
-//
+

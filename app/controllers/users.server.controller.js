@@ -151,45 +151,32 @@ exports.signout = function(req, res) {
 	res.redirect('/');
 };
 
-// get a user by id
-exports.getById = function(req, res, next, userId) {
-	User.findById(userId).exec(function(err, user){
-		if (err) return next(err);
-		if (!user) return next(new Error('Failed to load user ' + userId));
 
-		req.user = user;
-		next();
-	});
-	
-};
-
-// update a user 
-exports.updateUser = function(req, res) {
-	var user = req.user;
-
-	user.score = req.body.score;
-
-	user.save(function(err) {
+// returns all the users in the db
+exports.list = function(req, res) {
+	User.find().select('username score').exec(function(err, users) {
 		if (err) {
 			return res.status(400).send({
 				message: getErrorMessage(err)
 			});
 		} else {
-			res.json(user);
+			res.json(users);
 		}
 	});
-
 };
+
+
 
 // Create a new controller middleware that is used to authorize authenticated operations 
 exports.requiresLogin = function(req, res, next) {
+	console.log('requiresLogin');
 	// If a user is not authenticated send the appropriate error message
 	if (!req.isAuthenticated()) {
 		return res.status(401).send({
 			message: 'User is not logged in'
 		});
 	}
-
+	console.log('authenticated');
 	// Call the next middleware
 	next();
 };

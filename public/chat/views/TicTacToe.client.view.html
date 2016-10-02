@@ -164,30 +164,32 @@
               </table>
             </div>
 
-            <div id="RoomLedger" ng-controller="usersController" style="width: 47%; float: left;">
-              <table id="tblRoomLedger">
-                <th>
-                  Players Connected
-                </th>
-                <tr ng-repeat="player in playersConnected">
-                  <td>{{ player }}</td>
-                </tr>
-              </table>
+            <div ng-controller="usersController">
+              <div id="RoomLedger" style="width: 47%; float: left;">
+                <table id="tblRoomLedger">
+                  <th>
+                    Players Connected
+                  </th>
+                  <tr ng-repeat="player in playersConnected">
+                    <td>{{ player }}</td>
+                  </tr>
+                </table>
+              </div>
+
+              <div id="RoomLedger" style="width: 47%; float: right;">
+                <table id="tblRoomLedger">
+                  <th colspan="2">
+                    Top Score
+                  </th>
+                  <tr ng-repeat="userScore in topScores | orderBy:'-score'">
+                    <td>{{ userScore.username }}</td>
+                    <td>{{ userScore.score }}</td>
+                  </tr>
+                </table>
+              </div>
             </div>
 
-            <div id="RoomLedger" ng-controller="usersController" style="width: 47%; float: right;">
-              <table id="tblRoomLedger">
-                <th colspan="2">
-                  Top Score
-                </th>
-                <tr ng-repeat="userScore in topScores | orderBy:'-score'">
-                  <td>{{ userScore.user }}</td>
-                  <td>{{ userScore.score }}</td>
-                </tr>
-              </table>
-            </div>
-
-
+            <button ng-click="getList()">Get User Scores List</button>
 
             </div>
 

@@ -20,9 +20,8 @@ module.exports = function(app) {
 	   			var user = req.user;
 	   			res.send(user);
 	   		});
-
-	app.route('/api/users/:userId')
-		.post(users.updateUser);
+	app.route('/api/users')
+		.get(users.list);
 
 	// Set up the Facebook OAuth routes
 	app.get('/oauth/facebook', passport.authenticate('facebook', {
@@ -58,6 +57,4 @@ module.exports = function(app) {
 	// Set up the 'signout' route
 	app.get('/signout', users.signout);
 
-	// param
-	app.param('userId', users.getById);
 };

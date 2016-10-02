@@ -21,6 +21,7 @@ module.exports = function() {
 			
 			// If a user was not found, continue to the next middleware with an error message
 			if (!user) {
+				console.log('username not found');
 				return done(null, false, {
 					message: 'Unknown user'
 				});
@@ -28,6 +29,7 @@ module.exports = function() {
 
 			// If the passport is incorrect, continue to the next middleware with an error message
 			if (!user.authenticate(password)) {
+				console.log('password incorrect');
 				return done(null, false, {
 					message: 'Invalid password'
 				});
