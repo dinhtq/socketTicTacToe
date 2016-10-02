@@ -67,6 +67,7 @@ exports.renderSignup = function(req, res, next) {
 
 // Create a new controller method that creates new 'regular' users
 exports.signup = function(req, res, next) {
+	console.log('signup');
 	// If user is not connected, create and login a new user, otherwise redirect the user back to the main application page
 	if (!req.user) {
 		// Create a new 'User' model instance
@@ -75,11 +76,13 @@ exports.signup = function(req, res, next) {
 
 		// Set the user provider property
 		user.provider = 'local';
-
+		console.log('trying to save new user');
 		// Try saving the new user document
 		user.save(function(err) {
 			// If an error occurs, use flash messages to report the error
 			if (err) {
+				console.log('error');
+				console.log(err);
 				// Use the error handling method to get the error message
 				var message = getErrorMessage(err);
 

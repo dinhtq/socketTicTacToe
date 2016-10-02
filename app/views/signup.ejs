@@ -8,11 +8,7 @@
 	<link href='https://fonts.googleapis.com/css?family=Nunito:400,700' rel='stylesheet' type='text/css'>
 </head>
 <body>
-  	<!-- Display flash messages 
-	<% for(var i in messages) { %>
-	   <div class="flash"><%= messages[i] %></div>
-	<% } %>
-	-->
+
 	<div class="authContainer">
 		<div id="wrapper">
 		  <div id="sidebar">
@@ -23,10 +19,13 @@
 		      </a>
 		      <p>A Real Time Multiplayer Experience</p>
 		    </div>
-
-
+	    	
 		    <!-- Render the signup form  -->
 		    <form action="/signup" method="post">
+		      	<!-- Display flash messages -->
+		    	<% for(var i in messages) { %>
+		    	   <div class="flash"><%= messages[i] %></div>
+		    	<% } %>
 		      <div class="form-group">
 		        <input type="text" name="username" placeholder="Username" autofocus />
 		      </div>
