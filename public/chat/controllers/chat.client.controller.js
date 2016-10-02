@@ -50,7 +50,7 @@ angular.module('chat').controller('ChatController', ['$scope', 'Socket',
 
     //chatMessage event listener that adds retrieved messages to messages[]
     Socket.on('chatMessage', function(message){
-      console.log('chat controller Socket.on');
+      //console.log('chat controller Socket.on');
             
       $scope.messages.push(message);
 
@@ -59,7 +59,6 @@ angular.module('chat').controller('ChatController', ['$scope', 'Socket',
     });
 
     $scope.$on('ngRepeatFinished', function (ngRepeatFinishedEvent) {
-       console.log('Event captured in the controller, when finished rendering');
        eleMiddleChatContainer.scrollTop = eleMiddleChatContainer.scrollHeight;
  
     });

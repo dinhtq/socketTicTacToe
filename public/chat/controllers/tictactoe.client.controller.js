@@ -40,6 +40,12 @@ angular.module('chat').controller('TicTacToeController', ['Socket','$rootScope',
     }
   };
 
+  Socket.on('signInMessage', function(message){
+    console.log('socket signInMessage');
+    $scope.GlobalRoomData = message.RoomData;
+    console.log($scope.GlobalRoomData);
+  });
+
 
   $scope.playAgain = function(){
     console.log("playAgain");

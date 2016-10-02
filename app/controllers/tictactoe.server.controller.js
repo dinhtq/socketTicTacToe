@@ -1,7 +1,11 @@
 module.exports = function(io, socket, clientsConnected, RoomData){
 
   //inform all sockets about the newly connected user
-  io.emit('signInMessage', clientsConnected);
+  var signInMessage = {
+    'clientsConnected': clientsConnected,
+    'RoomData': RoomData
+  };
+  io.emit('signInMessage', signInMessage);
 
 
   socket.on('join', function(roomToJoin){
@@ -92,7 +96,11 @@ module.exports = function(io, socket, clientsConnected, RoomData){
     RoomData[disconnectMessage.room].Players.splice(indexFound, 1);
     console.log(RoomData);
 
-    io.emit('signInMessage', clientsConnected);
+    var signInMessage = {
+      'clientsConnected': clientsConnected,
+      'RoomData': RoomData
+    };
+    io.emit('signInMessage', signInMessage);
     
   });
 
@@ -114,7 +122,11 @@ module.exports = function(io, socket, clientsConnected, RoomData){
     }
 
     console.log(RoomData);
-    io.emit('signInMessage', clientsConnected);
+    var signInMessage = {
+      'clientsConnected': clientsConnected,
+      'RoomData': RoomData
+    };
+    io.emit('signInMessage', signInMessage);
 
   });
 

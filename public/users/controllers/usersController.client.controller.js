@@ -12,7 +12,7 @@ angular.module('users').controller('usersController', ['$scope', '$http', 'Authe
 	Socket.on('signInMessage', function(message) {
 		console.log('socket on signInMessage');
 		console.dir(message);
-		$scope.playersConnected = message;
+		$scope.playersConnected = message.clientsConnected;
 
 	});
 
