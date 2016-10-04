@@ -1,6 +1,6 @@
 angular.module('chat').controller('TicTacToeController', ['Socket','$rootScope', '$scope', 'Authentication', 
-  '$location', '$window', 'modals', '$http',
-  function(Socket, $rootScope, $scope, Authentication, $location, $window, modals, $http){
+  '$location', '$window', 'modals', '$http', 'Idle',
+  function(Socket, $rootScope, $scope, Authentication, $location, $window, modals, $http, Idle){
 
   $scope.authentication = Authentication;
   $scope.joined = false;
@@ -1301,6 +1301,44 @@ angular.module('chat').controller('TicTacToeController', ['Socket','$rootScope',
     });
   };
 
+
+
+
+  $scope.idleling = false;
+  $scope.idleCountdown = 10;
+  $scope.isWarning = false;
+
+
+  $scope.$on('IdleStart', function() {
+      // the user appears to have gone idle
+      $scope.idleling = true;
+  });
+
+  $scope.$on('IdleWarn', function(e, countdown) {
+      // follows after the IdleStart event, but includes a countdown until the user is considered timed out
+      // the countdown arg is the number of seconds remaining until then.
+      // you can change the title or display a warning dialog from here.
+      // you can let them resume their session by calling Idle.watch()
+      if (!$scope.isWarning) {
+        $scope.isWarning = true;
+        startCountdown();
+      }
+     
+  });
+
+  $scope.$on('IdleTimeout', function() {
+      // the user has timed out (meaning idleDuration + timeout has passed without any activity)
+      // this is where you'd log them
+      $scope.idleling = false;
+  });
+
+  function startCountdown() {
+    setTimeout(function(){
+      $scope.$apply(function() {
+        $scope.idleCountdown = $scope.idleCountdown - 1;
+      });
+    }, 1000);
+  };
 
 
 }]);

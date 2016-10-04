@@ -121,6 +121,12 @@
                   <button ng-click="playAgain()" class="btn btn-small">Play Again</button>
                 </span>
               </span>
+              <span ng-show="idleling">
+                <span style="color:red;">
+                  Your session is about to expire!
+                 </span>
+                  
+              </span>
             </div>
             <div class="rightBox">
               <div class="dropdown">
@@ -199,12 +205,6 @@
               <div id="stage">
               </div>
 
-
-
-
-
-
-
                 <table id="tableStatus">
                   <!-- room output labels (players playing) -->
                   <tr ng-show="roomJoined == 1">
@@ -280,7 +280,7 @@
 
 
 
-                <!-- modal directive-->
+                <!-- modal directive for empty room-->
                 <div
                   bn-modals
                   ng-show="subview"
@@ -315,66 +315,17 @@
                   </div>
                   <!-- END: Alert Modal. -->
 
-
-                  <!-- BEGIN: Confirm Modal. -->
-                  <div
-                      ng-switch-when="confirm"
-                      ng-controller="ConfirmModalController"
-                      class="modal">
-
-                      <p>
-                          {{ message }}
-                      </p>
-
-                      <p>
-                          <a ng-click="confirm()">{{ confirmButton }}</a>
-                          &mdash;
-                          <a ng-click="deny()">{{ denyButton }}</a>
-                      </p>
-
-                  </div>
-                  <!-- END: Confirm Modal. -->
-
-
-                  <!-- BEGIN: Prompt Modal. -->
-                  <form
-                      ng-switch-when="prompt"
-                      ng-controller="PromptModalController"
-                      ng-submit="submit()"
-                      class="modal">
-
-                      <p>
-                          {{ message }}
-                      </p>
-
-                      <p ng-if="errorMessage">
-                          <strong>Sorry:</strong> {{ errorMessage }}
-                      </p>
-
-                      <p>
-                          <input type="text" ng-model="form.input" />
-                      </p>
-
-                      <p>
-                          <a ng-click="submit()">Submit</a>
-                          &mdash;
-                          <a ng-click="cancel()">Cancel</a>
-                      </p>
-
-                  </form>
-                  <!-- END: Prompt Modal. -->
-
-              </div>
-              <!-- END: Modals Layout. -->
-
-
-
+                </div>
+                <!-- END: Modals Layout. -->
 
             </div><!-- end joined area-->
+
+
         
-          </div>
-        </div>
-      </div>
+          </div><!-- end main area-->
+        </div><!-- end main_container area-->
+      </div><!-- end wrapper area-->
+
 
 
     </div><!-- end authentication area-->

@@ -4,11 +4,13 @@
 // NOTE: This controller gets "modals" injected; but, it is in no way
 // different than any other Controller in your entire AngularJS application.
 // It takes services, manages the view-model, and knows NOTHING about the DOM.
-angular.module('modal').controller('AlertModalController', ['$scope', 'modals',
+angular.module('modal').controller('AlertModalController', ['$scope', 'modals', '$rootScope',
   function($scope, modals){
 
     // Setup default values using modal params.
     $scope.message = ( modals.params().message || "Whoa!" );
+    
+
     // ---
     // PUBLIC METHODS.
     // ---
