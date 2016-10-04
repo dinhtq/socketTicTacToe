@@ -1314,16 +1314,12 @@ angular.module('chat').controller('TicTacToeController', ['Socket','$rootScope',
       $scope.idleling = true;
   });
 
-  $scope.$on('IdleWarn', function(e, countdown) {
-      // follows after the IdleStart event, but includes a countdown until the user is considered timed out
-      // the countdown arg is the number of seconds remaining until then.
-      // you can change the title or display a warning dialog from here.
-      // you can let them resume their session by calling Idle.watch()
-      if (!$scope.isWarning) {
-        $scope.isWarning = true;
-        startCountdown();
-      }
-     
+  $scope.$on('IdleEnd', function() {
+      // the user has come back from AFK and is doing stuff. if you are warning them, you can use this to hide the dialog
+
+      $scope.$apply(function(){
+        $scope.idleling = false;
+      });
   });
 
   $scope.$on('IdleTimeout', function() {
@@ -1331,14 +1327,6 @@ angular.module('chat').controller('TicTacToeController', ['Socket','$rootScope',
       // this is where you'd log them
       $scope.idleling = false;
   });
-
-  function startCountdown() {
-    setTimeout(function(){
-      $scope.$apply(function() {
-        $scope.idleCountdown = $scope.idleCountdown - 1;
-      });
-    }, 1000);
-  };
 
 
 }]);
