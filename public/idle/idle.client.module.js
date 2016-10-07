@@ -76,7 +76,7 @@ angular.module('idle')
     // start watching when the app runs. also starts the Keepalive service by default.
     if (Authentication.user) {
     	console.log('signed in');
-    	Idle.watch();
+    	//Idle.watch();
     }; 
     
 

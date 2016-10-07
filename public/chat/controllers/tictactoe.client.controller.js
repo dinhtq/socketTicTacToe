@@ -1057,25 +1057,30 @@ angular.module('chat').controller('TicTacToeController', ['Socket','$rootScope',
   function checkWhoWon(){
     //console.log("checkWhoWon()");
     var match = 0;
+    var matchedPositions = [];
     //check if min turns reached
     if (counterTurns > 4) {
       ////console.log("min turns reached");
       //check if player1 won
       if (counterTurns % 2 > 0) {
-        ////console.log("check if Player1 won");
+        //console.log("check if Player1 won");
         //find player1 symbolPositions[] in possibleWins[]
         for (var row = 0; row < possibleWins.length; row++) {
           for (var column = 0; column < COLUMNS; column++) {
 
             //check if possibleWins item is in player1 symbolPositions[]
             if (Player1.symbolPositions.indexOf(possibleWins[row][column].toString()) > -1) {
-                //log("possibleWins[" + row + "," + column + "]" + " found in Player1 symbolPositions: " + Player1.symbolPositions);
+         
+                //console.log("possibleWins[" + row + "," + column + "]" + " found in Player1 symbolPositions: " + Player1.symbolPositions);
                 //if last column is found in player1.symbolPositions then player won
                 match++;
-                if (match == 3) {
+                matchedPositions.push(possibleWins[row][column].toString());
+                if (match === 3) {
+                 
+                  renderWinAnimation(matchedPositions);
                   gameOver = true;
                   Player1.won = true;
-                  ////console.log("player1 won");
+                  
                 }
             }
             else{
@@ -1179,6 +1184,47 @@ angular.module('chat').controller('TicTacToeController', ['Socket','$rootScope',
     
 
   }
+
+  function renderWinAnimation(positions) {
+    console.log('renderWinAnimation');
+    // turn the symbols at those positions green
+
+    // normalize positions to unique integers
+    var modPositions = [];
+    for(var i in positions) {
+      var n = parseInt(positions[i]);
+      if (modPositions.indexOf(n) < 0) {
+        modPositions.push(n);
+      }
+    };
+
+    // turn the symbols at the modidified positions green
+    var nodesSymbols = document.querySelectorAll('.cell');
+    console.dir(nodesSymbols);
+    nodesSymbols.forEach(function(node) {
+      var symbolPos = parseInt(node.id);
+      if(modPositions.indexOf(symbolPos) > -1){
+        node.style.color = "#1abc9c";
+      }
+    });
+
+  };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
