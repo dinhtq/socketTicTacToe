@@ -89,7 +89,7 @@ a, .link {
 
 #inputContainer button{
   position: relative;
-  top: 8%;
+  top: 6%;
   border-radius: 1px;
   background-color: #ecf0f1;
 }
@@ -97,7 +97,8 @@ a, .link {
 #inputChat{
   width: 80%;
   margin-top: 3%;
-  height: 47%; 
+  height: 54%;
+  font-size: 1em;
 }
 
 .dropdown {
