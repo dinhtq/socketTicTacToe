@@ -188,14 +188,14 @@
                     Top Score
                   </th>
                   <tr ng-repeat="userScore in topScores | orderBy:'-score'">
-                    <td>{{ userScore.username }}</td>
+                    <td>{{ userScore.user.username }}</td>
                     <td>{{ userScore.score }}</td>
                   </tr>
                 </table>
               </div>
             </div>
 
-            <button ng-click="getList()">Get User Scores List</button>
+            <!-- <button ng-click="getList()">Get User Scores List</button> -->
 
             </div>
 

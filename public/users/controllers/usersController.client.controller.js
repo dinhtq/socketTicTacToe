@@ -3,11 +3,7 @@ angular.module('users').controller('usersController', ['$scope', '$http', 'Authe
 
 	$scope.playersConnected = [];
 
-	$scope.topScores = [
-		{ user: 'jason', score: 46 },
-		{ user: 'jenny', score: 78 },
-		{ user: 'jack', score: 50 }
-	];
+	$scope.topScores = [];
 
 	Socket.on('signInMessage', function(message) {
 		console.log('socket on signInMessage');
@@ -19,15 +15,13 @@ angular.module('users').controller('usersController', ['$scope', '$http', 'Authe
 	// update topScores 
 	function updateTopScores(users) {
 		// only get users with score prop
-		$scope.topScores = users.filter(function(user){
-			return user.score !== undefined && user.score !== null;
-		});
+		$scope.topScores = users;
 	};
 
 	// initial ajax call to get list of users
 	$http({
 		method: 'GET',
-		url: '/api/users',
+		url: '/api/userScores',
 
 	})
 	.then(function successCallback(response){
@@ -43,7 +37,7 @@ angular.module('users').controller('usersController', ['$scope', '$http', 'Authe
 				//console.log('polling...');
 				$http({
 					method: 'GET',
-					url: '/api/users'
+					url: '/api/userScores'
 				})
 				.then(function successCallback(response){
 					//console.log('success poll');
