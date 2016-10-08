@@ -1104,7 +1104,9 @@ angular.module('chat').controller('TicTacToeController', ['Socket','$rootScope',
             if (Player2.symbolPositions.indexOf(possibleWins[row][column].toString()) > -1) {
                 //if last column is found in player2.symbolPositions then player won
                 match++;
-                if (match == 3) {
+                matchedPositions.push(possibleWins[row][column].toString());
+                if (match === 3) {
+                  renderWinAnimation(matchedPositions);
                   gameOver = true;
                   Player2.won = true;
                   ////console.log("player2 won");
@@ -1197,10 +1199,10 @@ angular.module('chat').controller('TicTacToeController', ['Socket','$rootScope',
         modPositions.push(n);
       }
     };
-
+    console.log(modPositions);
     // turn the symbols at the modidified positions green
     var nodesSymbols = document.querySelectorAll('.cell');
-    console.dir(nodesSymbols);
+    
     nodesSymbols.forEach(function(node) {
       var symbolPos = parseInt(node.id);
       if(modPositions.indexOf(symbolPos) > -1){
