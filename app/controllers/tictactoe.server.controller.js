@@ -107,6 +107,7 @@ module.exports = function(io, socket, clientsConnected, RoomData){
   socket.on('disconnect', function(){
     console.log('socket on disconnect');
     console.log(socket.request.user.username + ' signed out');
+    var roomLeft = null;
     //remove user from clientsConnected
     var indexUser = clientsConnected.indexOf(socket.request.user.username);
     clientsConnected.splice(indexUser, 1);
@@ -116,6 +117,7 @@ module.exports = function(io, socket, clientsConnected, RoomData){
     for (var room in RoomData) {
       for (var userIndex in RoomData[room].Players) {
         if (RoomData[room].Players[userIndex] === socket.request.user.username) {
+          roomLeft = room;
           RoomData[room].Players.splice(userIndex, 1);
         }
       }
@@ -127,6 +129,13 @@ module.exports = function(io, socket, clientsConnected, RoomData){
       'RoomData': RoomData
     };
     io.emit('signInMessage', signInMessage);
+
+    //inform everyone that someone left
+    var leftRoomMessage = {
+      player: socket.request.user.username,
+      roomLeft: roomLeft
+    };
+    io.emit('leftRoomMessage', leftRoomMessage);
 
   });
 

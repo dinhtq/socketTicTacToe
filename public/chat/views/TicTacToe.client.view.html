@@ -136,7 +136,7 @@
               <div class="dropdown">
                 <span>Hello <span data-ng-bind="authentication.user.username"></span> <i class="fa fa-angle-down" aria-hidden="true"></i></span>
                 <div class="dropdown-content">
-                  <a href="/signout" class="">Sign out</a>
+                  <a ng-click="signOut()" class="">Sign out</a>
                 </div>
               </div>
             </div>

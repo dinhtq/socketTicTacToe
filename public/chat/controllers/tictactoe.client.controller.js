@@ -434,6 +434,12 @@ angular.module('chat').controller('TicTacToeController', ['Socket','$rootScope',
 
   });
 
+  $scope.signOut = function(){
+    $scope.leave();
+    $window.location.href = '/signin';
+  };
+
+
   $scope.leave = function(){
     console.log('$scope.leave()');
     $scope['outputPlayer1WinsRoom' + $scope.roomJoined] = 0;
@@ -495,8 +501,9 @@ angular.module('chat').controller('TicTacToeController', ['Socket','$rootScope',
 
   Socket.on('leftRoomMessage', function(leftRoomMessage){
     console.log("socket on leftRoomMessage");
+    console.log(leftRoomMessage);
     //remove player from RoomData
-    var indexPlayerInRoomData = $scope.RoomData[leftRoomMessage.room].Players.indexOf(leftRoomMessage.player);
+    var indexPlayerInRoomData = $scope.RoomData[leftRoomMessage.roomLeft].Players.indexOf(leftRoomMessage.player);
     //update output player names status
     var updateObj = {
       room: $scope.roomJoined,
