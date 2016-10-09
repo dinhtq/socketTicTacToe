@@ -81,7 +81,7 @@ module.exports = function(io, socket, clientsConnected, RoomData){
   //event handler - inform all sockets about disconnected player
   socket.on('disconnectMessage', function(disconnectMessage){
     console.log('socket on disconnectMessage');
-    console.log(socket.request.user.username + ' disconnected');
+    console.log(socket.request.user.username + ' signed out');
     //remove user from clientsConnected
     var indexUser = clientsConnected.indexOf(disconnectMessage.username);
     clientsConnected.splice(indexUser, 1);
@@ -106,7 +106,7 @@ module.exports = function(io, socket, clientsConnected, RoomData){
 
   socket.on('disconnect', function(){
     console.log('socket on disconnect');
-    console.log(socket.request.user.username + ' disconnected');
+    console.log(socket.request.user.username + ' signed out');
     //remove user from clientsConnected
     var indexUser = clientsConnected.indexOf(socket.request.user.username);
     clientsConnected.splice(indexUser, 1);

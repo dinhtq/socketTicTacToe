@@ -159,17 +159,17 @@
                 <tr>
                   <td>1</td>
                   <td><span style="font-size:1em;" ng-bind="GlobalRoomData['1'].Players.length"></span>/2</td>
-                  <td><button class="btn btn-large" ng-click="join(1)">Join</button></td>
+                  <td><button class="btn btn-large" ng-click="join(1)" ng-class="joinBtnClass1" ng-disabled="disabledRoom1">{{ joinButtonTextRoom1 }}</button></td>
                 </tr>
                 <tr>
                   <td>2</td>
                   <td><span ng-bind="GlobalRoomData['2'].Players.length" style="font-size:1em;"></span>/2</td>
-                  <td><button class="btn btn-large" ng-click="join(2)">Join</button></td>
+                  <td><button class="btn btn-large" ng-click="join(2)" ng-class="joinBtnClass2" ng-disabled="disabledRoom2">{{ joinButtonTextRoom2 }}</button></td>
                 </tr>
                 <tr>
                   <td>3</td>
                   <td><span ng-bind="GlobalRoomData['3'].Players.length" style="font-size:1em;"></span>/2</td>
-                  <td><button class="btn btn-large" ng-click="join(3)">Join</button></td>
+                  <td><button class="btn btn-large" ng-click="join(3)" ng-class="joinBtnClass3" ng-disabled="disabledRoom3">{{ joinButtonTextRoom3 }}</button></td>
                 </tr>
               </table>
             </div>

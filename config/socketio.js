@@ -50,7 +50,7 @@ module.exports = function(server, io, mongoStore){
   //configure socket server to include server handlers
   io.on('connection', function(socket){
 
-    console.log(socket.request.user.username + ' connected');
+    console.log(socket.request.user.username + ' signed in');
 
     clientsConnected.push(socket.request.user.username);
     console.log(clientsConnected);

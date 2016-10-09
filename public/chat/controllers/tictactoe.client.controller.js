@@ -8,7 +8,15 @@ angular.module('chat').controller('TicTacToeController', ['Socket','$rootScope',
   $scope.gameStarted = false;
   $scope.roomJoined = 0;
   $scope.gameOver = false;
-
+  $scope.joinButtonTextRoom1 = 'Join';
+  $scope.joinButtonTextRoom2 = 'Join';
+  $scope.joinButtonTextRoom3 = 'Join';
+  $scope.joinBtnClass1 = '';
+  $scope.joinBtnClass2 = '';
+  $scope.joinBtnClass3 = '';
+  $scope.disabledRoom1 = false;
+  $scope.disabledRoom2 = false;
+  $scope.disabledRoom3 = false;
   $scope.clientTurn = false;
 
   if($scope.authentication.user){
@@ -39,6 +47,31 @@ angular.module('chat').controller('TicTacToeController', ['Socket','$rootScope',
       "Players": []
     }
   };
+
+  $scope.$watch('GlobalRoomData', function(newVal) {
+    console.log('watch GlobalRoomData');
+    console.log(newVal);
+
+    for(var room in $scope.GlobalRoomData) {
+      if ($scope.GlobalRoomData[room].Players.length === 2) {
+        console.log('room ' + room + ' is full');
+        $scope['joinButtonTextRoom' + room] = 'FULL';
+        $scope['joinBtnClass' + room] = 'fullRoom';
+        $scope['disabledRoom' + room] = true;
+      } else if ($scope.GlobalRoomData[room].Players.length == 1) {
+        console.log('room ' + room + ' is not empty');
+        $scope['joinButtonTextRoom' + room] = 'Join';
+        $scope['joinBtnClass' + room] = 'nonEmptyRoom';
+        $scope['disabledRoom' + room] = false;
+      } else {
+        console.log('room ' + room + ' is empty');
+        $scope['joinButtonTextRoom' + room] = 'Start';
+        $scope['joinBtnClass' + room] = 'emptyRoom';
+        $scope['disabledRoom' + room] = false;
+      }
+    }
+
+  });
 
   Socket.on('signInMessage', function(message){
     console.log('socket signInMessage');

@@ -163,6 +163,7 @@ a, .link {
 
 
 
+
 th{
   border-bottom: 3px solid #F7F7F7;
 }
@@ -189,14 +190,13 @@ th, td {
 
 .btn {
   padding: 10px;
-  border: 1px solid #3498db;
   text-decoration: none;
   border-radius: 8%;
   color: white;
   cursor: pointer;
-  background-color: #3498db;
   font-family: 'Nunito', sans-serif;
   font-size: 1em;
+  background-color: #3498db;
   /* box-shadow: 1px 4px 7px gray; */
 }
 
@@ -214,6 +214,36 @@ th, td {
   width: 97%;
   border-radius: 0px;
   margin-left: 1.5%;
+}
+
+.emptyRoom {
+  background-color: #3498db;
+  border: #3498db;
+}
+
+.emptyRoom:hover{
+  background-color: #2980b9;
+  border: #2980b9;
+}
+
+.nonEmptyRoom {
+  background-color: #2ecc71;
+  border: #2ecc71;
+}
+
+.nonEmptyRoom:hover{
+  background-color: #26a65b;
+  border: #26a65b;
+}
+
+.fullRoom {
+  background-color: #e74c3c;
+  border: #e74c3c;
+}
+
+.fullRoom:hover{
+  background-color: #e3301c;
+  border: #e3301c;
 }
 
 
